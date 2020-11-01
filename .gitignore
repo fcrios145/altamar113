@@ -6,9 +6,14 @@
 # IntelliJ IDEA
 .idea/
 *.iml
+*.map
 
 # Maven
 target/
 
 node_modules/
 db_data/
+
+dist/
+
+bundle.js
