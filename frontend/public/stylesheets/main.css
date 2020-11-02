@@ -137,6 +137,100 @@ table {
 
 body {
   font-family: 'Montserrat', 'sans-serif';
+  font-size: 16px;
+}
+
+.topbar-color {
+  background-color: #417BF2;
+  height: 0.375em;
+}
+
+header {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2em;
+}
+
+header img {
+  margin: 1em 0;
+  align-self: center;
+}
+
+header nav {
+  background-color: #A1BFFD;
+  color: #333;
+  font-weight: bold;
+  font-size: 1.07em;
+  padding: 0 1.5em;
+}
+
+header nav ul {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+header nav ul li {
+  margin: 0 1em;
+}
+
+header nav ul li a {
+  text-decoration: none;
+  color: #333;
+}
+
+a.active {
+  font-weight: bolder;
+  border-bottom: 4px solid #E28A62;
+}
+
+h2 {
+  font-size: 2.25em;
+  font-weight: bolder;
+  text-align: center;
+  margin-bottom: 1.5em;
+}
+
+h2 span {
+  color: #427FFA;
+}
+
+.container {
+  margin: 0 1em;
+}
+
+.center-container {
+  display: flex;
+  justify-content: center;
+}
+
+.button {
+  background-color: #427FFA;
+  border: 0;
+  color: #FFF;
+  font-weight: bold;
+  font-size: 1.3em;
+  padding: 1em 2em;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* Fallback for browsers that do not support Custom Properties */
+  height: calc(var(--vh, 1vh) * 100);
+  justify-content: space-between;
+  width: 100%;
+}
+
+footer {
+  height: 3.75em;
+  background-color: #033496;
+}
+
+@media only screen and (max-width: 800px) {
+  body {
+    background-color: lightblue;
+  }
 }
 
 /*# sourceMappingURL=main.css.map*/

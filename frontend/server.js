@@ -8,6 +8,7 @@ import logger from 'morgan';
 import debug from 'debug';
 import http from 'http';
 import { renderToString } from "react-dom/server";
+import pug from 'pug';
 
 import userRouter from './routes/users'
 // import authRouter from './routes/auth'
@@ -51,21 +52,14 @@ promise.then((data) => {
     </StaticRouter>
 );
 
-res.send(`
-      <!DOCTYPE html>
-      <html>
-        <head>
-          <title>SSR with RR</title>
-          <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-          <link rel="stylesheet" href='/static/stylesheets/main.css'>
-          <script src="/static/javascripts/bundle.js" defer></script>
-          <script>window.__INITIAL_DATA__ = ${serialize(data)}</script>
-        </head>
-        <body>
-          <div id="app">${markup}</div>
-        </body>
-      </html>
-    `)
+var options = {
+    initialData: serialize(data),
+    markup: markup
+}
+var html = pug.renderFile(path.join(__dirname, '../views/app.pug'), options);
+console.log(html);
+
+res.send(html)
 }).catch(next)
 })
 
