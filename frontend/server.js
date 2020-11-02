@@ -56,6 +56,7 @@ res.send(`
       <html>
         <head>
           <title>SSR with RR</title>
+          <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
           <link rel="stylesheet" href='/static/stylesheets/main.css'>
           <script src="/static/javascripts/bundle.js" defer></script>
           <script>window.__INITIAL_DATA__ = ${serialize(data)}</script>

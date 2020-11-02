@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import routes from './routes'
-import NavBar from './Navbar'
+// import NavBar from './Navbar'
 import {Route, Link, Switch, NavLink, Redirect } from 'react-router-dom'
 import PrivateRoute, { logged, fakeAuth } from "../browser/PrivateRoute";
 

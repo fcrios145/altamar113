@@ -1,8 +1,18 @@
 import React from 'react'
-import NavBar from "./Navbar";
+import Navbar from "../browser/Navbar";
 
 export default function Home () {
     return (
-        <h1>Altamar 113 Home</h1>
+        <header>
+            Header
+            <img src="/static/images/logo.png" alt="altamar logo"/>
+            <nav>
+                <ul>
+                    <li>Inicio</li>
+                    <li>Contáctanos</li>
+                    <li>Hamburger icon</li>
+                </ul>
+            </nav>
+        </header>
     )
 }
