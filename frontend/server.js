@@ -52,16 +52,17 @@ promise.then((data) => {
     </StaticRouter>
 );
 
+
 var options = {
     initialData: serialize(data),
     markup: markup
 }
-var html = pug.renderFile(path.join(__dirname, '../views/app.pug'), options);
-console.log(html);
+var htmlContent = pug.renderFile(path.join(__dirname, '../views/app.pug'), options)
+console.log(htmlContent);
+res.send(htmlContent)
 
-res.send(html)
 }).catch(next)
-})
+});
 
 
 // error handler

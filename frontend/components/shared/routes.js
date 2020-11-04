@@ -1,6 +1,8 @@
 import React from 'react';
 import Home from './Home'
 import Login from './Login'
+import Menu from '../browser/Menu'
+import MenuPlate from '../browser/MenuPlate'
 
 const routes =  [
     {
@@ -8,6 +10,24 @@ const routes =  [
         exact: true,
         protectedPage: false,
         component: Home,
+    },
+    {
+        path: '/menu/',
+        protectedPage: false,
+        exact: true,
+        component: Menu,
+    },
+    {
+        path: '/menu/:categoria',
+        protectedPage: false,
+        exact: true,
+        component: Menu,
+    },
+    {
+        path: '/menu/:categoria/:platillo',
+        protectedPage: false,
+        exact: true,
+        component: MenuPlate,
     },
     // {
     //     path: '/popular/:id',
