@@ -2,7 +2,7 @@ import React from 'react';
 import Home from './Home'
 import Login from './Login'
 import Menu from '../browser/Menu'
-import MenuPlate from '../browser/MenuPlate'
+import Plate from '../browser/Plate'
 
 const routes =  [
     {
@@ -14,7 +14,7 @@ const routes =  [
     {
         path: '/menu/:categoria?/:platillo?',
         protectedPage: false,
-        component: Menu,
+        component: Plate,
     },
     // {
     //     path: '/popular/:id',
