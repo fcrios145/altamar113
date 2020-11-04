@@ -1,6 +1,6 @@
 import React from 'react';
-import { NavLink } from "react-router-dom";
-import Slider from './Slider'
+import { NavLink, Redirect } from "react-router-dom";
+import Plate from './Plate'
 
 export default class Subnavbar extends React.Component {
     constructor(props) {
@@ -49,20 +49,30 @@ export default class Subnavbar extends React.Component {
         }
     }
 
+    setPageTitle () {
+        const { category, plate } = this.props;
+        if(plate === undefined) {
+            return category;
+        } else {
+            return `${category} - ${plate}`;
+        }
+    }
+
     componentDidMount() {
-        document.title = `${this.props.category} - ${this.props.plate}`;
+        document.title = this.setPageTitle();
     }
 
     componentDidUpdate() {
-        document.title = `${this.props.category} - ${this.props.plate}`;
+        document.title = this.setPageTitle();
     }
 
     render() {
         const { categories } = this.state;
-        const { category } = this.props;
+        const { category, plate } = this.props;
 
         const selectedCategory = categories.find(item => item.name === category);
         return (
+
             <React.Fragment>
                 <nav className='subnav'>
                     <ul>
@@ -70,7 +80,7 @@ export default class Subnavbar extends React.Component {
                             categories.map(item => (
                                 <li key={item.name}>
                                     <NavLink
-                                        to={`/menu/${item.name}`}>
+                                        to={`/menu/${item.name}/`}>
                                         {item.text}
                                     </NavLink>
                                 </li>
@@ -91,6 +101,10 @@ export default class Subnavbar extends React.Component {
                         ))}
                     </ul>
                 </nav>
+                {!plate && <h2>Seleccione un platillo</h2>}
+                {plate &&
+                    <Plate plate={plate}></Plate>
+                }
             </React.Fragment>
         );
     }

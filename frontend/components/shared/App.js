@@ -3,7 +3,7 @@ import routes from './routes'
 // import NavBar from './Navbar'
 import {Route, Link, Switch, NavLink, Redirect } from 'react-router-dom'
 import PrivateRoute, { logged, fakeAuth } from "../browser/PrivateRoute";
-
+import RouteWithSubRoutes from "./RouteWithSubRoutes";
 
 function NoMatch() {
     return(
@@ -21,7 +21,7 @@ class App extends Component {
         const authRoutes = routes.filter((route) => route.protectedPage === true);
         return (
             <React.Fragment>
-                <div>
+                <div className="wrapper space-between">
 
 
 
@@ -38,6 +38,16 @@ class App extends Component {
                         )}
                         <Route render={(props) => <NoMatch {...props} /> } />
                     </Switch>
+
+                    <footer className='center-container'>
+                        <a href="https://www.facebook.com/Altamar113" target='_blank'>
+                            <img src="/static/images/facebook.png" alt="facebookLogo"/>
+                        </a>
+                        <a href="https://www.instagram.com/altamar113/" target='_blank'>
+                            <img src="/static/images/instagram.png" alt="instagramLogo"/>
+                        </a>
+                    </footer>
+
                 </div>
 
             </React.Fragment>

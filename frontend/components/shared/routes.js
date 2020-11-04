@@ -12,22 +12,9 @@ const routes =  [
         component: Home,
     },
     {
-        path: '/menu/',
+        path: '/menu/:categoria?/:platillo?',
         protectedPage: false,
-        exact: true,
         component: Menu,
-    },
-    {
-        path: '/menu/:categoria',
-        protectedPage: false,
-        exact: true,
-        component: Menu,
-    },
-    {
-        path: '/menu/:categoria/:platillo',
-        protectedPage: false,
-        exact: true,
-        component: MenuPlate,
     },
     // {
     //     path: '/popular/:id',

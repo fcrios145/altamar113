@@ -5,7 +5,7 @@ import { NavLink } from "react-router-dom";
 
 export default function Home () {
     return (
-        <div className="wrapper space-between">
+        <React.Fragment>
             <Header imageInHeader={true}>
                 <Navbar />
             </Header>
@@ -19,14 +19,6 @@ export default function Home () {
                     </button>
                 </NavLink>
             </div>
-            <footer className='center-container'>
-                <a href="https://www.facebook.com/Altamar113" target='_blank'>
-                    <img src="/static/images/facebook.png" alt="facebookLogo"/>
-                </a>
-                <a href="https://www.instagram.com/altamar113/" target='_blank'>
-                    <img src="/static/images/instagram.png" alt="instagramLogo"/>
-                </a>
-            </footer>
-        </div>
+        </React.Fragment>
 )
 }
