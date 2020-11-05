@@ -17,10 +17,12 @@ import routes from "./components/shared/routes";
 import App from "./components/shared/App";
 import serialize from "serialize-javascript";
 import { StaticRouter, matchPath } from "react-router-dom"
+import favicon from 'serve-favicon'
 
 const app = express();
 
 app.use(bodyParser.json());
+
 
 // view engine setup
 app.set('views', path.join(__dirname, '../views'));
@@ -32,6 +34,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use('/static', express.static(path.join(__dirname, '../public')));
+app.use(favicon(path.join(__dirname, '../public', 'favicon.ico')))
 console.log('ads');
 console.log( path.join(__dirname, '../public') );
 
