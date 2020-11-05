@@ -1,20 +1,22 @@
 import React from 'react';
 import Home from './Home'
+import Home2 from "../browser/Home2";
 import Login from './Login'
 import Menu from '../browser/Menu'
 import Plate from '../browser/Plate'
+import Test2 from "../browser/Test2";
 
 const routes =  [
     {
         path: '/',
         exact: true,
         protectedPage: false,
-        component: Home,
+        component: Home2,
     },
     {
         path: '/menu/:categoria?/:platillo?',
         protectedPage: false,
-        component: Plate,
+        component: Test2,
     },
     // {
     //     path: '/popular/:id',

@@ -70,7 +70,6 @@ h2 span {
 }
 
 footer.center-container {
-    margin-top: 1em;
 }
 
 .button {
@@ -95,6 +94,13 @@ footer.center-container {
     height: calc(var(--vh, 1vh) * 100);
     width: 100%;
 }
+
+.wrapper-fix-height {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
 
 .space-between {
     justify-content: space-between;
@@ -131,7 +137,7 @@ footer img {
 
 .plate {
     position: relative;
-
+    display: flex;
 }
 
 .plate-image {

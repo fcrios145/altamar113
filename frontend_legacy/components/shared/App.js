@@ -22,8 +22,11 @@ class App extends Component {
         super(props);
         this.state = {
             imageInHeader: true,
-            params: {},
             selectedCategory: '',
+            showCategoryNavbar: false,
+            showPlateNavbar: false,
+            plates: [],
+            wrapperClass: 'wrapper',
             categories: [
                 {
                     text: 'Ceviches',
@@ -66,10 +69,15 @@ class App extends Component {
             ]
         };
         this.setGlobalState = this.setGlobalState.bind(this);
+        this.searchPlate = this.searchPlate.bind(this);
     }
 
     setGlobalState(state) {
         this.setState({...this.state, ...state})
+    }
+
+    searchPlate(category = "") {
+        return this.state.categories.find(item => item.name === category) || {};
     }
 
 
@@ -81,19 +89,10 @@ class App extends Component {
         const { selectedCategory } = this.state;
         return (
             <React.Fragment>
-                <div className="wrapper space-between">
-                    <Header imageInHeader={this.state.imageInHeader}>
-                        <Navbar imageLogo={!this.state.imageInHeader}/>
-                        {!this.state.imageInHeader &&
-                        <React.Fragment>
-                            <Subnavbar2 {...this.state}></Subnavbar2>
-                            <nav className='subnav-sub'>
-
-                            </nav>
-                        </React.Fragment>
-                        }
-
-                    </Header>
+                {/*<div className="wrapper space-between">*/}
+                {/*    <Header imageInHeader={this.state.imageInHeader}>*/}
+                {/*        <Navbar imageLogo={!this.state.imageInHeader}/>*/}
+                {/*    </Header>*/}
                     <Switch>
 
                         {notAuthRoutes.map(({path, exact, component: Component, ...rest}) =>
@@ -103,6 +102,7 @@ class App extends Component {
                                     {...rest}
                                     {...this.state}
                                     setGlobalState={this.setGlobalState}
+                                    searchPlate={this.searchPlate}
                                 />
                             }}/>
                         )}
@@ -113,16 +113,16 @@ class App extends Component {
                         <Route render={(props) => <NoMatch {...props} />}/>
                     </Switch>
 
-                    <footer className='center-container'>
-                        <a href="https://www.facebook.com/Altamar113" target='_blank'>
-                            <img src="/static/images/facebook.png" alt="facebookLogo"/>
-                        </a>
-                        <a href="https://www.instagram.com/altamar113/" target='_blank'>
-                            <img src="/static/images/instagram.png" alt="instagramLogo"/>
-                        </a>
-                    </footer>
+                    {/*<footer className='center-container'>*/}
+                    {/*    <a href="https://www.facebook.com/Altamar113" target='_blank'>*/}
+                    {/*        <img src="/static/images/facebook.png" alt="facebookLogo"/>*/}
+                    {/*    </a>*/}
+                    {/*    <a href="https://www.instagram.com/altamar113/" target='_blank'>*/}
+                    {/*        <img src="/static/images/instagram.png" alt="instagramLogo"/>*/}
+                    {/*    </a>*/}
+                    {/*</footer>*/}
 
-                </div>
+                {/*</div>*/}
 
             </React.Fragment>
         )

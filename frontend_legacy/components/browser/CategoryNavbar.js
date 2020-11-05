@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from "react-router-dom";
 
-export default class SubNavbar3 extends React.Component {
+export default class CategoryNavbar extends React.Component {
     render() {
         const { categories } = this.props;
         return (

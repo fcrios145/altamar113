@@ -1,18 +1,15 @@
 import React from 'react';
-import Navbar from "./Navbar";
 
 export default class Header extends React.Component {
     render() {
+        const { imageInHeader } = this.props
         return (
-            <header>
+            <React.Fragment>
                 <div className="topbar-color"></div>
-                {
-                    this.props.imageInHeader &&
+                {!imageInHeader &&
                     <img src="/static/images/logo.png" alt="altamar logo"/>
                 }
-                {this.props.children}
-                {/*<Navbar />*/}
-            </header>
+            </React.Fragment>
         );
     }
 }

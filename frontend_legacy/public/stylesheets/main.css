@@ -206,7 +206,6 @@ h2 span {
 }
 
 footer.center-container {
-  margin-top: 1em;
 }
 
 .button {
@@ -229,6 +228,12 @@ footer.center-container {
   flex-direction: column;
   height: 100vh; /* Fallback for browsers that do not support Custom Properties */
   height: calc(var(--vh, 1vh) * 100);
+  width: 100%;
+}
+
+.wrapper-fix-height {
+  display: flex;
+  flex-direction: column;
   width: 100%;
 }
 
@@ -267,6 +272,7 @@ footer img {
 
 .plate {
   position: relative;
+  display: flex;
 }
 
 .plate-image {

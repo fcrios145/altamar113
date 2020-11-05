@@ -1,13 +1,15 @@
 import React from 'react'
-import Navbar from "../browser/Navbar";
-import Header from '../browser/Header'
 import { NavLink } from "react-router-dom";
 
 export default class Home extends  React.Component {
     constructor(props) {
         super(props);
-        this.props.setGlobalState({imageInHeader:true});
     }
+
+    componentDidMount() {
+
+    }
+
     render() {
         return (
             <div className="container">

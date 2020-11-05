@@ -5,7 +5,7 @@ export default class Navbar extends React.Component {
     render() {
         return (
             <nav>
-                {this.props.imageLogo &&
+                {this.props.imageInHeader &&
                     <img className='logo logo-small' src="/static/images/logo.png" alt="altamarLogo.png"/>
                 }
                 <ul>
