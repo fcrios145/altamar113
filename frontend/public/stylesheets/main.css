@@ -208,7 +208,7 @@ h2 span {
 footer.center-container {
   display: flex;
   flex-direction: column;
-  padding: 2em 4em;
+  padding: 2em 1em;
 }
 
 .button {

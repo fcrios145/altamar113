@@ -21,6 +21,7 @@ export default function Footer() {
                     <span>6692147852</span>
                 </a>
             </div>
+            <span style={{color: 'white', marginTop: '1em'}}>Sitio desarrollado por @frcios145</span>
         </footer>
     )
 }
