@@ -1,6 +1,5 @@
 import React from 'react';
-import Home from './Home'
-import Home2 from "../browser/Home2";
+import Home from "../browser/Home";
 import Login from './Login'
 import Menu from '../browser/Menu'
 import Plate from '../browser/Plate'
@@ -11,7 +10,7 @@ const routes =  [
         path: '/',
         exact: true,
         protectedPage: false,
-        component: Home2,
+        component: Home,
     },
     {
         path: '/menu/:categoria?/:platillo?',

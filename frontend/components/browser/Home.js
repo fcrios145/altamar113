@@ -2,7 +2,7 @@ import React from 'react';
 import Layout from "./Layout";
 import {NavLink} from "react-router-dom";
 
-export default class Home2 extends React.Component {
+export default class Home extends React.Component {
     componentDidMount() {
         this.props.setGlobalState({
             imageInHeader:false,
