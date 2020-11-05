@@ -1,12 +1,7 @@
 import React, {Component} from 'react'
 import routes from './routes'
-// import NavBar from './Navbar'
 import {Route, Link, Switch, NavLink, Redirect} from 'react-router-dom'
 import PrivateRoute, {logged, fakeAuth} from "../browser/PrivateRoute";
-import RouteWithSubRoutes from "./RouteWithSubRoutes";
-import Header from "../browser/Header";
-import Navbar from "../browser/Navbar";
-import Subnavbar2 from "../browser/Subnavbar2";
 
 
 function NoMatch() {
