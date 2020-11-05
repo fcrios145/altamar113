@@ -14,7 +14,7 @@ export default class Home extends React.Component {
     render() {
         return (
             <Layout {...this.props}>
-                <div className="container">
+                <div className="container" style={{margin: '1.5em 0'}}>
                     <h2>Somos la combinación perfecta entre <span>ceviches y sushi nice &#127843;</span></h2>
                     <div className="center-container">
                         <NavLink to={`/menu/ceviches/tony-espacial`}>

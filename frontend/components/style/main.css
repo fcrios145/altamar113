@@ -126,6 +126,12 @@ footer a {
     margin-bottom: 1em;
 }
 
+.footer-align-left {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+}
+
 .subnav {
     padding: 1em 0;
     background-color: #88AEFC;
