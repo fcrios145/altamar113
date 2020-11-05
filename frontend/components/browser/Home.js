@@ -7,8 +7,7 @@ export default class Home extends React.Component {
         this.props.setGlobalState({
             imageInHeader:false,
             showCategoryNavbar: false,
-            showPlateNavbar: false,
-            wrapperClass: 'wrapper'
+            showPlateNavbar: false
         })
     }
 

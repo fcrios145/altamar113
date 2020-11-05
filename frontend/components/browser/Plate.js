@@ -7,8 +7,7 @@ export default class Plate extends React.Component {
         this.props.setGlobalState({
             imageInHeader:true,
             showCategoryNavbar: true,
-            showPlateNavbar: true,
-            wrapperClass: 'wrapper-fix-height'
+            showPlateNavbar: true
         })
 
     }

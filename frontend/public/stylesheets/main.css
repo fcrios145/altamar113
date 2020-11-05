@@ -206,6 +206,9 @@ h2 span {
 }
 
 footer.center-container {
+  display: flex;
+  flex-direction: column;
+  padding: 2em 4em;
 }
 
 .button {
@@ -231,12 +234,6 @@ footer.center-container {
   width: 100%;
 }
 
-.wrapper-fix-height {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-}
-
 .space-between {
   justify-content: space-between;
 }
@@ -247,7 +244,6 @@ footer.center-container {
 }
 
 footer {
-  height: 3.75em;
   background-color: #033496;
   align-items: center;
 }
@@ -256,6 +252,14 @@ footer img {
   height: 32px;
   width: 32px;
   margin-right: 1em;
+}
+
+footer a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #E7F4FE;
+  margin-bottom: 1em;
 }
 
 .subnav {

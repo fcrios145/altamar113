@@ -21,7 +21,6 @@ class App extends Component {
             showCategoryNavbar: false,
             showPlateNavbar: false,
             plates: [],
-            wrapperClass: 'wrapper',
             categories: [
                 {
                     text: 'Ceviches',

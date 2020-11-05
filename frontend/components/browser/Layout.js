@@ -12,12 +12,11 @@ export default class Layout extends React.Component {
             categories,
             imageInHeader,
             showCategoryNavbar,
-            showPlateNavbar,
-            wrapperClass
+            showPlateNavbar
         } = this.props;
         const { categoria, platillo } = this.props.match.params;
         return (
-            <div className={`${wrapperClass} space-between`}>
+            <div className={`wrapper space-between`}>
                 <header>
                     <Header imageInHeader={imageInHeader}/>
                     <Navbar imageInHeader={imageInHeader} />
