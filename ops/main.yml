@@ -1,0 +1,3 @@
+- include: initial.yml
+- include: initial_update.yml
+- include: mariadb.yml
