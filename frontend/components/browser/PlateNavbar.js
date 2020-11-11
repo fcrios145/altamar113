@@ -5,7 +5,7 @@ export default class PlateNavbar extends React.Component {
     render() {
         const { plates, category } = this.props;
         return (
-            <nav className='subnav-sub'>
+            <nav className='subnav-sub mobile-only'>
                 <ul>
                     {
                         ((plates && category )) && plates.plates.map(item => (

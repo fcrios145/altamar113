@@ -358,6 +358,14 @@ footer a {
   background-size: 22.5px 41px;
 }
 
+.not-mobile {
+  display: none;
+}
+
+.mobile-only {
+  display: block;
+}
+
 @media only screen and (max-width: 568px) {
   #app > div > header > nav > ul > li:nth-child(4) {
     display: none;
@@ -369,6 +377,14 @@ footer a {
 }
 
 @media only screen and (min-width: 1024px) {
+  .mobile-only {
+    display: none;
+  }
+
+  .not-mobile {
+    display: block;
+  }
+
   .rows {
     display: flex;
     flex-direction: row;
@@ -382,7 +398,7 @@ footer a {
 
   #app > div.wrapper.space-between > div > div:nth-child(1) > h2 {
     font-size: 4em;
-    font-weight: bolder;
+    font-weight: 900;
     text-align: left;
   }
 
@@ -399,6 +415,17 @@ footer a {
 
   #app > div > header > nav > ul > li:nth-child(5) {
     display: none;
+  }
+
+  footer.center-container {
+    display: flex;
+    flex-direction: row;
+    padding: 2em 5em;
+    justify-content: flex-start;
+  }
+
+  .footer-row {
+    width: 33.33%;
   }
 }
 

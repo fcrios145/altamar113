@@ -94,7 +94,7 @@ export default class Navbar extends React.Component {
                 </div>
             <nav>
                 {this.props.imageInHeader &&
-                    <img className='logo logo-small' src="/static/images/logo.png" alt="altamarLogo.png"/>
+                    <img className='logo logo-small mobile-only' src="/static/images/logo.png" alt="altamarLogo.png"/>
                 }
                 <ul>
                     <li>
@@ -102,7 +102,11 @@ export default class Navbar extends React.Component {
                             Inicio
                         </NavLink>
                     </li>
-                    <li>Menú</li>
+                    <li>
+                        <NavLink exact to={`/menu/ceviches/tony-espacial`}>
+                            Menú
+                        </NavLink>
+                    </li>
                     <li>Contáctanos</li>
                     <li>Promociones</li>
                     <li style={{cursor: 'pointer'}} onClick={(e) => this.clickHamburgerIcon()}><img src="/static/images/hamburger-icon.svg" alt=""/></li>

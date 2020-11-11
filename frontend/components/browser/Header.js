@@ -6,8 +6,9 @@ export default class Header extends React.Component {
         return (
             <React.Fragment>
                 {!imageInHeader &&
-                    <img src="/static/images/logo.png" alt="altamar logo"/>
+                    <img className='mobile-only' src="/static/images/logo.png" alt="altamar logo"/>
                 }
+                <img className='not-mobile' src="/static/images/logo.png" alt="altamar logo"/>
             </React.Fragment>
         );
     }
