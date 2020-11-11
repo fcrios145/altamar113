@@ -6,8 +6,10 @@ import { BrowserRouter } from 'react-router-dom'
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import { storeReducer } from '../shared/store'
+import { composeWithDevTools } from 'redux-devtools-extension'
 
-const store = createStore(storeReducer, 1)
+
+const store = createStore(storeReducer, 1, composeWithDevTools())
 
 hydrate(
     <BrowserRouter>

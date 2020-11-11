@@ -21,8 +21,10 @@ import favicon from 'serve-favicon'
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import { storeReducer } from './components/shared/store'
+import { composeWithDevTools } from 'redux-devtools-extension'
 
-let store = createStore(storeReducer);
+
+let store = createStore(storeReducer, 1, composeWithDevTools());
 console.log(store.getState());
 console.log('store');
 

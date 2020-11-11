@@ -1,6 +1,7 @@
 import React from 'react';
+import { connect } from 'react-redux'
 
-export default function Footer() {
+function Footer({ counter }) {
     return (
         <footer className='center-container'>
             <div className='footer-align-left'>
@@ -22,6 +23,21 @@ export default function Footer() {
                 </a>
             </div>
             <span style={{color: 'white', marginTop: '1em'}}>Sitio desarrollado por @frcios145</span>
+            <h5>counter: {counter}</h5>
         </footer>
     )
 }
+
+
+const mapStateToProps = (state /*, ownProps*/) => {
+    return {
+      counter: state
+    }
+  }
+  
+//   const mapDispatchToProps = { increment, decrement, reset }
+  
+  export default connect(
+    mapStateToProps,
+    null
+  )(Footer)
