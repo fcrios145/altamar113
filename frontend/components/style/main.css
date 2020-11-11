@@ -200,6 +200,20 @@ footer a {
     background: url('/static/images/right-arrow.svg');
 }
 
+
+.icon--close-big {
+    position: absolute;
+    display: block;
+
+    width: 35px;
+    height: 35px;
+    background-size: 35px 35px;
+
+    top: 2em;
+    right: 4em;
+    background: url('/static/images/close-big-icon.svg');
+}
+
 .right-arrow {
     position: absolute;
     display: block;
