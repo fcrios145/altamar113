@@ -24,7 +24,7 @@ import { storeReducer } from './components/shared/store'
 import { composeWithDevTools } from 'redux-devtools-extension'
 
 
-let store = createStore(storeReducer, 1, composeWithDevTools());
+let store = createStore(storeReducer, 100, composeWithDevTools());
 console.log(store.getState());
 console.log('store');
 

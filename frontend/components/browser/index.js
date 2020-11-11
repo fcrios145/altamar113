@@ -9,7 +9,7 @@ import { storeReducer } from '../shared/store'
 import { composeWithDevTools } from 'redux-devtools-extension'
 
 
-const store = createStore(storeReducer, 1, composeWithDevTools())
+const store = createStore(storeReducer, 100, composeWithDevTools())
 
 hydrate(
     <BrowserRouter>

@@ -23,7 +23,7 @@ function Footer({ counter }) {
                 </a>
             </div>
             <span style={{color: 'white', marginTop: '1em'}}>Sitio desarrollado por @frcios145</span>
-            <h5>counter: {counter}</h5>
+            {/* <h5>counter: {counter}</h5> */}
         </footer>
     )
 }

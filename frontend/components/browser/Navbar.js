@@ -102,7 +102,9 @@ export default class Navbar extends React.Component {
                             Inicio
                         </NavLink>
                     </li>
+                    <li>Menú</li>
                     <li>Contáctanos</li>
+                    <li>Promociones</li>
                     <li style={{cursor: 'pointer'}} onClick={(e) => this.clickHamburgerIcon()}><img src="/static/images/hamburger-icon.svg" alt=""/></li>
                 </ul>
             </nav>
