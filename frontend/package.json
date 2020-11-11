@@ -50,6 +50,7 @@
     "nodemon": "^2.0.4",
     "nodemon-webpack-plugin": "^4.3.2",
     "postcss-loader": "^3.0.0",
+    "redux-devtools-extension": "^2.13.8",
     "style-loader": "^1.2.1",
     "webpack": "^4.43.0",
     "webpack-cli": "^3.3.12",

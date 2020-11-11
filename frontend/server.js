@@ -58,7 +58,9 @@ app.get("*", (req, res, next) => {
         const context = { data }
         const markup = renderToString(
             <StaticRouter location={req.url} context={context}>
-                <App />
+                <Provider store={store}>
+                    <App />
+                </Provider>
             </StaticRouter>
         );
 
