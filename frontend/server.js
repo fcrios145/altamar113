@@ -20,6 +20,11 @@ import { StaticRouter, matchPath } from "react-router-dom"
 import favicon from 'serve-favicon'
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
+import { storeReducer } from './components/shared/store'
+
+let store = createStore(storeReducer);
+console.log(store.getState());
+console.log('store');
 
 const app = express();
 
@@ -53,19 +58,20 @@ app.get("*", (req, res, next) => {
         const context = { data }
         const markup = renderToString(
             <StaticRouter location={req.url} context={context}>
-        <App />
-        </StaticRouter>
-    );
+                <App />
+            </StaticRouter>
+        );
 
-    var options = {
-        initialData: serialize(data),
-        markup: markup
-    }
-    var htmlContent = pug.renderFile(path.join(__dirname, '../views/app.pug'), options)
-    console.log(htmlContent);
-    res.send(htmlContent)
+        var options = {
+            initialData: serialize(data),
+            markup: markup
+        }
+        
+        var htmlContent = pug.renderFile(path.join(__dirname, '../views/app.pug'), options)
+        console.log(htmlContent);
+        res.send(htmlContent)
 
-}).catch(next)
+    }).catch(next)
 });
 
 
