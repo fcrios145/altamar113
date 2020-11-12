@@ -41,7 +41,7 @@ function Footer({ counter }) {
             <div className='footer-row not-mobile' style={{alignSelf: 'self-start'}} >
                 <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
                     <span style={footerTitleStyle}>Lo que la gente dice de nosotros:</span>
-                    <span>lorem1 asjdjksadkdjksda</span>
+                    <span style={{textAlign: 'center', color: '#E7F4FE'}}>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti, dicta in itaque nihil numquam provident qui quibusdam, quidem rem repudiandae sit tenetur ullam velit vero.</span>
                 </div>
             </div>
             {/* <h5>counter: {counter}</h5> */}

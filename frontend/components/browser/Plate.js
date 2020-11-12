@@ -101,7 +101,14 @@ export default class Plate extends React.Component {
                                 }}>
                                     Camarón crudo acompañado con pepino tomate y cebolla moradaen cuadro, chile serrano y cilantro finamente picado coronado con aguacate
                                 </p>
-                                <img style={{width: '100%', height: 'auto', maxWidth: '500px', alignSelf: 'center', marginBottom: '1em'}} src="/static/images/slider-1.png" alt=""/>
+                                <img style={{
+                                    width: '100%',
+                                    height: 'auto',
+                                    maxWidth: '500px',
+                                    alignSelf: 'center',
+                                    marginBottom: '1em',
+                                    filter: 'drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25))'
+                                }} src="/static/images/slider-1.png" alt=""/>
                             </div>
 
                         </div>
