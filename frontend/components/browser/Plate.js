@@ -27,7 +27,7 @@ export default class Plate extends React.Component {
                 <div className="plate">
                     {plate &&
                     <React.Fragment>
-                        <img className='plate-image' src="/static/images/ceviche.png" alt="ceviche" />
+                        <img style={{width: '100%', height: 'auto'}} className='plate-image' src="/static/images/ceviche.png" alt="ceviche" />
                         <div className="text-in-image">
                             <h1 className='plate-title'>{plate.name}</h1>
                             <p className='plate-description'>Camarón crudo acompañado con pepino tomate y cebolla moradaen cuadro, chile serrano y cilantro finamente picado coronado con aguacate</p>
