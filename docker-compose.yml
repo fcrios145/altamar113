@@ -25,6 +25,16 @@ services:
       MYSQL_USER: altamar
       MYSQL_PASSWORD: altamarpw
 
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    restart: always
+    environment:
+      PMA_HOST: db
+      PMA_USER: altamar
+      PMA_PASSWORD: altamarpw
+    ports:
+      - "8081:80"
+
 #  nginx:
 #    depends_on:
 #      - backend
