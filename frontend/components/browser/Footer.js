@@ -1,9 +1,25 @@
 import React from 'react';
+import { connect } from 'react-redux'
 
-export default function Footer() {
+const footerTitleStyle = {
+    marginBottom: '1em',
+    color: '#E7F4FE',
+    fontSize: '1.2em',
+    fontWeight: 'bold'
+}
+
+const embarcateStyle = {
+    color: '#E7F4FE',
+    fontWeight: '700',
+    textAlign: 'center',
+    fontSize: '1.8em'
+}
+
+function Footer({ counter }) {
     return (
         <footer className='center-container'>
-            <div className='footer-align-left'>
+            <div className='footer-align-left footer-row'>
+                <span className='not-mobile' style={footerTitleStyle}>Mantente en contacto:</span>
                 <a href="https://www.facebook.com/Altamar113" target='_blank'>
                     <img src="/static/images/facebook.png" alt="facebookLogo"/>
                     <span>No olvides darnos like</span>
@@ -21,7 +37,29 @@ export default function Footer() {
                     <span>6692147852</span>
                 </a>
             </div>
-            <span style={{color: 'white', marginTop: '1em'}}>Sitio desarrollado por @frcios145</span>
+            <p className='footer-row not-mobile' style={embarcateStyle}>Embarcate en nuestro sabor</p>
+            <div className='footer-row not-mobile' style={{alignSelf: 'self-start'}} >
+                <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+                    <span style={footerTitleStyle}>Lo que la gente dice de nosotros:</span>
+                    <span style={{textAlign: 'center', color: '#E7F4FE'}}>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti, dicta in itaque nihil numquam provident qui quibusdam, quidem rem repudiandae sit tenetur ullam velit vero.</span>
+                </div>
+            </div>
+            {/* <h5>counter: {counter}</h5> */}
+            {/* <span style={{color: 'white', marginTop: '1em', flex: 10}}>Sitio desarrollado por @frcios145</span> */}
         </footer>
     )
 }
+
+
+const mapStateToProps = (state /*, ownProps*/) => {
+    return {
+      counter: state
+    }
+  }
+  
+//   const mapDispatchToProps = { increment, decrement, reset }
+  
+  export default connect(
+    mapStateToProps,
+    null
+  )(Footer)

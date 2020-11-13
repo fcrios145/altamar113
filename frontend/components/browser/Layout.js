@@ -16,26 +16,29 @@ export default class Layout extends React.Component {
         } = this.props;
         const { categoria, platillo } = this.props.match.params;
         return (
-            <div className={`wrapper space-between`}>
-                <header>
-                    <Header imageInHeader={imageInHeader}/>
-                    <Navbar imageInHeader={imageInHeader} />
-                    {showCategoryNavbar &&
-                        <CategoryNavbar categories={categories}/>
-                    }
-                    {showPlateNavbar &&
-                        <PlateNavbar category={categoria}  plates={this.props.searchPlate(categoria)}/>
-                    }
-                </header>
+            <React.Fragment>
+                <div className="topbar-color"></div>
+                <div className={`wrapper space-between`}>
+                    <header>
+                        <Header imageInHeader={imageInHeader}/>
+                        <Navbar imageInHeader={imageInHeader} />
+                        {showCategoryNavbar &&
+                            <CategoryNavbar categories={categories}/>
+                        }
+                        {showPlateNavbar &&
+                            <PlateNavbar category={categoria}  plates={this.props.searchPlate(categoria)}/>
+                        }
+                    </header>
 
 
 
-                {/*Content*/}
-                {this.props.children}
+                    {/*Content*/}
+                    {this.props.children}
 
-                <Footer/>
+                    <Footer/>
 
-            </div>
+                </div>
+            </React.Fragment>
         );
     }
 }

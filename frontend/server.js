@@ -18,6 +18,15 @@ import App from "./components/shared/App";
 import serialize from "serialize-javascript";
 import { StaticRouter, matchPath } from "react-router-dom"
 import favicon from 'serve-favicon'
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+import { storeReducer } from './components/shared/store'
+import { composeWithDevTools } from 'redux-devtools-extension'
+
+
+let store = createStore(storeReducer, 100, composeWithDevTools());
+console.log(store.getState());
+console.log('store');
 
 const app = express();
 
@@ -43,28 +52,30 @@ app.use('/users', userRouter);
 
 app.get("*", (req, res, next) => {
     const activeRoute = routes.find((route) => matchPath(req.url, route)) || {}
-const promise = activeRoute.fetchInitialData
-    ? activeRoute.fetchInitialData(req.path)
-    : Promise.resolve()
+    const promise = activeRoute.fetchInitialData
+        ? activeRoute.fetchInitialData(req.path)
+        : Promise.resolve()
 
-promise.then((data) => {
-    const context = { data }
-    const markup = renderToString(
-        <StaticRouter location={req.url} context={context}>
-    <App />
-    </StaticRouter>
-);
+    promise.then((data) => {
+        const context = { data }
+        const markup = renderToString(
+            <StaticRouter location={req.url} context={context}>
+                <Provider store={store}>
+                    <App />
+                </Provider>
+            </StaticRouter>
+        );
 
+        var options = {
+            initialData: serialize(data),
+            markup: markup
+        }
+        
+        var htmlContent = pug.renderFile(path.join(__dirname, '../views/app.pug'), options)
+        console.log(htmlContent);
+        res.send(htmlContent)
 
-var options = {
-    initialData: serialize(data),
-    markup: markup
-}
-var htmlContent = pug.renderFile(path.join(__dirname, '../views/app.pug'), options)
-console.log(htmlContent);
-res.send(htmlContent)
-
-}).catch(next)
+    }).catch(next)
 });
 
 

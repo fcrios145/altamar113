@@ -1,0 +1,59 @@
+version: "3.6"
+
+services:
+
+  flyway:
+    #    image: flyway/flyway
+    build:
+      context: ./db
+    command: -url=jdbc:mysql://db -schemas=altamar -user=altamar -password=altamarpw -connectRetries=60 migrate
+    #    volumes:
+    #      - ./db/migrations:/flyway/sql
+    depends_on:
+      - db
+  db:
+    image: mysql:5.7
+    volumes:
+      - ./db/db_data:/var/lib/mysql
+    restart: always
+    ports:
+      - 3308:3306
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpw
+      MYSQL_DATABASE: altamar
+      MYSQL_USER: altamar
+      MYSQL_PASSWORD: altamarpw
+
+#  nginx:
+#    depends_on:
+#      - backend
+#    build:
+#      context: ./nginx
+#    ports:
+#      - 80:80
+
+#  backend:
+#    #    environment:
+#    #      - MAVEN_OPTS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=1043
+#    #      - JAVA_TOOL_OPTIONS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=1043
+#    build:
+#      context: ./escolar_app
+#    depends_on:
+#      - db
+#    ports:
+#      - "8080:8080"
+#      - "1043:1043"
+#    volumes:
+#      - ./escolar_app:/build
+#
+#  frontend:
+#    build:
+#      context: ./frontend
+#    command: npm start
+#    ports:
+#      - "3000:3000"
+#    depends_on:
+#      - backend
+#    volumes:
+#      - ./frontend:/usr/src/app

@@ -5,7 +5,7 @@ export default class CategoryNavbar extends React.Component {
     render() {
         const { categories } = this.props;
         return (
-            <nav className='subnav'>
+            <nav className='subnav mobile-only'>
                 <ul>
                     {
                         categories && categories.map(item => (

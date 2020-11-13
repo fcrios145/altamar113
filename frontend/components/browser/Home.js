@@ -1,8 +1,10 @@
 import React from 'react';
 import Layout from "./Layout";
 import {NavLink} from "react-router-dom";
+import { connect } from 'react-redux'
+import Slider from '../browser/Slider'
 
-export default class Home extends React.Component {
+class Home extends React.Component {
     componentDidMount() {
         this.props.setGlobalState({
             imageInHeader:false,
@@ -14,17 +16,41 @@ export default class Home extends React.Component {
     render() {
         return (
             <Layout {...this.props}>
-                <div className="container" style={{margin: '1.5em 0'}}>
-                    <h2>Somos la combinación perfecta entre <span>ceviches y sushi nice &#127843;</span></h2>
-                    <div className="center-container">
-                        <NavLink to={`/menu/ceviches/tony-espacial`}>
-                            <button className='button'>
-                                Ir al Menú
-                            </button>
-                        </NavLink>
+                {/* <h1>Counter: {this.props.counter}</h1>
+                <button onClick={() => this.props.dispatch({ "type": "INCREMENT" })}>Sum</button> */}
+                <div className="container rows" style={{margin: '1.5em 0'}}>
+                    <div className='row'>
+                        <h2>Somos la combinación perfecta entre <br/><span>ceviches y sushi nice &#127843;</span></h2>
+                    </div>
+                    <div className='row mobile-only'>
+                        <div className="center-container">
+                            <NavLink to={`/menu/ceviches/tony-espacial`}>
+                                <button className='button'>
+                                    Ir al Menú
+                                </button>
+                            </NavLink>
+                        </div>
+                    </div>
+                    <div className='row not-mobile'>
+                        <Slider/>
                     </div>
                 </div>
             </Layout>
+            
         );
     }
 }
+
+const mapStateToProps = (state /*, ownProps*/) => {
+    return {
+      counter: state
+    }
+  }
+  
+//   const mapDispatchToProps = { increment, decrement, reset }
+  
+  export default connect(
+    mapStateToProps,
+    null
+  )(Home)
+  
