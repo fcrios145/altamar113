@@ -1,3 +1,4 @@
 - include: initial.yml
-- include: initial_update.yml
-- include: mariadb.yml
+- include: install-mysql.yml
+- include: hardening-mysql.yml
+- include: conf-mysql.yml

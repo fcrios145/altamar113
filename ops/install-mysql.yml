@@ -1,7 +1,7 @@
 - hosts: masters
   become: yes
   tasks:
-    - name: Install latest mariadb-server
+    - name: Install latest mysql-server
       apt:
-        name: mariadb-server
+        name: mysql-server
         state: latest

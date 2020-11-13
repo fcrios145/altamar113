@@ -1,5 +1,9 @@
 [masters]
-master ansible_host=167.172.134.221 ansible_user=root
+master ansible_host=161.35.109.17 ansible_user=root
+
+[masters:vars]
+database_name=altamar
+database_password=altamarpw
 
 [all:vars]
 ansible_python_interpreter=/usr/bin/python3
