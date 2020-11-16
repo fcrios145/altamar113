@@ -1,9 +1,19 @@
 [masters]
-master ansible_host=161.35.109.17 ansible_user=root
+master ansible_host=157.230.94.167 ansible_user=root
 
 [masters:vars]
 database_name=altamar
 database_password=altamarpw
+acme_challenge_type=http-01
+acme_directory=https://acme-v02.api.letsencrypt.org/directory
+acme_version=2
+acme_email=fcrios145@hotmail.com
+letsencrypt_dir=/etc/letsencrypt
+letsencrypt_keys_dir=/etc/letsencrypt/keys
+letsencrypt_csrs_dir=/etc/letsencrypt/csrs
+letsencrypt_certs_dir=/etc/letsencrypt/certs
+letsencrypt_account_key=/etc/letsencrypt/account/account.key
+domain_name=altamar113.com
 
 [all:vars]
 ansible_python_interpreter=/usr/bin/python3

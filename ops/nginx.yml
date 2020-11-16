@@ -1,0 +1,18 @@
+- hosts: masters
+  become: yes
+  tasks:
+    - name: Install latest nginx
+      apt:
+        name: nginx
+        state: latest
+
+    - name: start nginx
+      service:
+        name: nginx
+        state: started
+
+    - name: delete allow 'Nginx HTTP'
+      command: ufw delete allow 'Nginx HTTP'
+
+    - name: Allow 'Nginx HTTP Full'
+      command: ufw allow 'Nginx Full'

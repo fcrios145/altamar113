@@ -2,3 +2,5 @@
 - include: install-mysql.yml
 - include: hardening-mysql.yml
 - include: conf-mysql.yml
+
+- include: nginx.yml
