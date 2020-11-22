@@ -23,12 +23,10 @@ class App extends Component {
         return (
             <React.Fragment>
                     <Switch>
-                        {routes.map(({path, exact, component: Component, ...rest}) =>
+                        {routes.map(({path, exact, component: Component, protectedPage}) =>
                             <Route key={path} path={path} exact={exact} render={(props) => {
                                 return <Component
                                     {...props}
-                                    {...rest}
-                                    {...this.state}
                                 />
                             }}/>
                         )}
