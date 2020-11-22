@@ -17,7 +17,6 @@ class App extends Component {
         super(props);
         this.state = {
             selectedCategory: '',
-            showPlateNavbar: false,
             plates: [],
             categories: [
                 {
@@ -60,12 +59,7 @@ class App extends Component {
                 }
             ]
         };
-        this.setGlobalState = this.setGlobalState.bind(this);
         this.searchPlate = this.searchPlate.bind(this);
-    }
-
-    setGlobalState(state) {
-        this.setState({...this.state, ...state})
     }
 
     searchPlate(category = "") {
@@ -84,7 +78,6 @@ class App extends Component {
                                     {...props}
                                     {...rest}
                                     {...this.state}
-                                    setGlobalState={this.setGlobalState}
                                     searchPlate={this.searchPlate}
                                 />
                             }}/>

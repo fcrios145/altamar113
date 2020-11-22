@@ -45,7 +45,8 @@ class Layout extends React.Component {
 
 const mapStateToProps = (state /*, ownProps*/) => {
     return {
-        showCategoryNavbar: state.showCategoryNavbar
+        showCategoryNavbar: state.showCategoryNavbar,
+        showPlateNavbar: state.showPlateNavbar
     }
 }
 

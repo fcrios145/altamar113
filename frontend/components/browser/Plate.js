@@ -16,11 +16,9 @@ const spanTitle = {
 class Plate extends React.Component {
 
     componentDidMount() {
-        this.props.setGlobalState({
-            showPlateNavbar: true
-        })
         this.props.dispatch({ "type": "IMAGE_IN_HEADER", payload: true });
         this.props.dispatch({ "type": "SHOW_CATEGORY_NAVBAR", payload: true });
+        this.props.dispatch({ "type": "SHOW_PLATE_NAVBAR", payload: true });
 
     }
 
