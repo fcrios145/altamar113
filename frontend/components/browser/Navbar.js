@@ -1,5 +1,6 @@
 import React from 'react';
 import { NavLink } from "react-router-dom";
+import {connect} from "react-redux";
 
 const liStyles = {
     marginBottom: '1em'
@@ -17,7 +18,7 @@ const liPlateStyle = {
     marginTop: '0.7em'
 }
 
-export default class Navbar extends React.Component {
+class Navbar extends React.Component {
 
     constructor(props) {
         super(props);
@@ -116,3 +117,16 @@ export default class Navbar extends React.Component {
         )
     }
 }
+
+const mapStateToProps = (state /*, ownProps*/) => {
+    return {
+        imageInHeader: state.imageInHeader
+    }
+}
+
+//   const mapDispatchToProps = { increment, decrement, reset }
+
+export default connect(
+    mapStateToProps,
+    null
+)(Navbar)

@@ -4,13 +4,13 @@ import Footer from "./Footer";
 import CategoryNavbar from "./CategoryNavbar";
 import Navbar from "./Navbar";
 import PlateNavbar from "./PlateNavbar";
+import {connect} from "react-redux";
 
-export default class Layout extends React.Component {
+class Layout extends React.Component {
 
     render() {
         const {
             categories,
-            imageInHeader,
             showCategoryNavbar,
             showPlateNavbar
         } = this.props;
@@ -20,8 +20,8 @@ export default class Layout extends React.Component {
                 <div className="topbar-color"></div>
                 <div className={`wrapper space-between`}>
                     <header>
-                        <Header imageInHeader={imageInHeader}/>
-                        <Navbar imageInHeader={imageInHeader} />
+                        <Header />
+                        <Navbar />
                         {showCategoryNavbar &&
                             <CategoryNavbar categories={categories}/>
                         }
@@ -42,3 +42,16 @@ export default class Layout extends React.Component {
         );
     }
 }
+
+const mapStateToProps = (state /*, ownProps*/) => {
+    return {
+        showCategoryNavbar: state.showCategoryNavbar
+    }
+}
+
+//   const mapDispatchToProps = { increment, decrement, reset }
+
+export default connect(
+    mapStateToProps,
+    null
+)(Layout)

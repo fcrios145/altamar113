@@ -1,6 +1,7 @@
 import React from 'react';
+import {connect} from "react-redux";
 
-export default class Header extends React.Component {
+class Header extends React.Component {
     render() {
         const { imageInHeader } = this.props
         return (
@@ -13,3 +14,16 @@ export default class Header extends React.Component {
         );
     }
 }
+
+const mapStateToProps = (state /*, ownProps*/) => {
+    return {
+        imageInHeader: state.imageInHeader
+    }
+}
+
+//   const mapDispatchToProps = { increment, decrement, reset }
+
+export default connect(
+    mapStateToProps,
+    null
+)(Header)

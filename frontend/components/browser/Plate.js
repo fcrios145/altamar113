@@ -1,5 +1,6 @@
 import React from 'react';
 import Layout from "./Layout";
+import {connect} from "react-redux";
 
 const liMenuStyle = {
     color: '#053861',
@@ -12,14 +13,14 @@ const spanTitle = {
     color: '#2196F3'
 }
 
-export default class Plate extends React.Component {
+class Plate extends React.Component {
 
     componentDidMount() {
         this.props.setGlobalState({
-            imageInHeader:true,
-            showCategoryNavbar: true,
             showPlateNavbar: true
         })
+        this.props.dispatch({ "type": "IMAGE_IN_HEADER", payload: true });
+        this.props.dispatch({ "type": "SHOW_CATEGORY_NAVBAR", payload: true });
 
     }
 
@@ -120,3 +121,16 @@ export default class Plate extends React.Component {
         );
     }
 }
+
+const mapStateToProps = (state /*, ownProps*/) => {
+    return {
+        showCategoryNavbar: state.showCategoryNavbar
+    }
+}
+
+//   const mapDispatchToProps = { increment, decrement, reset }
+
+export default connect(
+    mapStateToProps,
+    null
+)(Plate)
