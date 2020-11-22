@@ -15,55 +15,6 @@ class App extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            selectedCategory: '',
-            plates: [],
-            categories: [
-                {
-                    text: 'Ceviches',
-                    name: 'ceviches',
-                    plates: [
-                        {
-                            name: "Tony espacial",
-                            url: "tony-espacial"
-                        },
-                        {
-                            name: "Mango beach",
-                            url: "manco-beach"
-                        }
-                    ]
-                },
-                {
-                    text: 'Aguachiles',
-                    name: 'aguachiles',
-                    plates: [
-                        {
-                            name: "Aguachile 1",
-                            url: "agua1"
-                        },
-                        {
-                            name: "Aguachile 2",
-                            url: "agua-2"
-                        }
-                    ]
-                },
-                {
-                    text: 'Sushis',
-                    name: 'sushis',
-                    plates:[
-                        {
-                            name: "Sushi 2",
-                            url: "sushi-2"
-                        }
-                    ]
-                }
-            ]
-        };
-        this.searchPlate = this.searchPlate.bind(this);
-    }
-
-    searchPlate(category = "") {
-        return this.state.categories.find(item => item.name === category) || {};
     }
 
 
@@ -78,7 +29,6 @@ class App extends Component {
                                     {...props}
                                     {...rest}
                                     {...this.state}
-                                    searchPlate={this.searchPlate}
                                 />
                             }}/>
                         )}

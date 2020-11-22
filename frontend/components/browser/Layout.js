@@ -10,7 +10,6 @@ class Layout extends React.Component {
 
     render() {
         const {
-            categories,
             showCategoryNavbar,
             showPlateNavbar
         } = this.props;
@@ -23,10 +22,10 @@ class Layout extends React.Component {
                         <Header />
                         <Navbar />
                         {showCategoryNavbar &&
-                            <CategoryNavbar categories={categories}/>
+                            <CategoryNavbar />
                         }
                         {showPlateNavbar &&
-                            <PlateNavbar category={categoria}  plates={this.props.searchPlate(categoria)}/>
+                            <PlateNavbar category={categoria} />
                         }
                     </header>
 

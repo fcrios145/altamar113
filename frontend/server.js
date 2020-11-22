@@ -20,7 +20,7 @@ import { StaticRouter, matchPath } from "react-router-dom"
 import favicon from 'serve-favicon'
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
-import { storeReducer } from './components/shared/store'
+import { storeReducer, initialState } from './components/shared/store'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import isLogged from "./isLogged";
 
@@ -59,11 +59,7 @@ app.get("*", async (req, res, next) => {
         ? activeRoute.fetchInitialData(req.path)
         : Promise.resolve();
 
-    const initialStateStore = {
-        logged: logged,
-        counter: 100
-    }
-    let store = createStore(storeReducer, initialStateStore, composeWithDevTools());
+    let store = createStore(storeReducer, initialState, composeWithDevTools());
 
     promise.then((data) => {
         const context = { data }
@@ -77,7 +73,7 @@ app.get("*", async (req, res, next) => {
 
         let options = {
             initialData: serialize(data),
-            initialStateStore: serialize(initialStateStore),
+            initialStateStore: serialize(initialState),
             markup: markup
         };
         

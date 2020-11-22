@@ -1,7 +1,8 @@
 import React from 'react';
 import { NavLink } from "react-router-dom";
+import {connect} from "react-redux";
 
-export default class CategoryNavbar extends React.Component {
+class CategoryNavbar extends React.Component {
     render() {
         const { categories } = this.props;
         return (
@@ -23,3 +24,16 @@ export default class CategoryNavbar extends React.Component {
         );
     }
 }
+
+const mapStateToProps = (state /*, ownProps*/) => {
+    return {
+        categories: state.categories
+    }
+}
+
+//   const mapDispatchToProps = { increment, decrement, reset }
+
+export default connect(
+    mapStateToProps,
+    null
+)(CategoryNavbar)

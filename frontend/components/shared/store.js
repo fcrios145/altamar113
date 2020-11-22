@@ -4,7 +4,47 @@ export const initialState = {
     logged: false,
     imageInHeader: true,
     showCategoryNavbar: false,
-    showPlateNavbar: false
+    showPlateNavbar: false,
+    categories: [
+        {
+            text: 'Ceviches',
+            name: 'ceviches',
+            plates: [
+                {
+                    name: "Tony espacial",
+                    url: "tony-espacial"
+                },
+                {
+                    name: "Mango beach",
+                    url: "manco-beach"
+                }
+            ]
+        },
+        {
+            text: 'Aguachiles',
+            name: 'aguachiles',
+            plates: [
+                {
+                    name: "Aguachile 1",
+                    url: "agua1"
+                },
+                {
+                    name: "Aguachile 2",
+                    url: "agua-2"
+                }
+            ]
+        },
+        {
+            text: 'Sushis',
+            name: 'sushis',
+            plates:[
+                {
+                    name: "Sushi 2",
+                    url: "sushi-2"
+                }
+            ]
+        }
+    ]
 };
 
 

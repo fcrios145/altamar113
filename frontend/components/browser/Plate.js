@@ -27,9 +27,13 @@ class Plate extends React.Component {
         document.title = `${categoria}`;
     }
 
+    searchPlate(category = "") {
+        return this.props.categories.find(item => item.name === category) || {};
+    }
+
     render() {
         const { categoria, platillo } = this.props.match.params;
-        const categoryObject = this.props.searchPlate(categoria);
+        const categoryObject = this.searchPlate(categoria);
         const plate = categoryObject.plates.find(item => item.url === platillo) || {};
         console.log(plate);
         return (
@@ -122,7 +126,8 @@ class Plate extends React.Component {
 
 const mapStateToProps = (state /*, ownProps*/) => {
     return {
-        showCategoryNavbar: state.showCategoryNavbar
+        showCategoryNavbar: state.showCategoryNavbar,
+        categories: state.categories
     }
 }
 
