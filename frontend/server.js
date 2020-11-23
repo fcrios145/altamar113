@@ -10,8 +10,9 @@ import http from 'http';
 import { renderToString } from "react-dom/server";
 import pug from 'pug';
 
-import userRouter from './routes/users'
-// import authRouter from './routes/auth'
+import userRouter from './routes/users';
+import authRouter from './routes/auth';
+import plateRouter from './routes/plateRouter';
 import routes from "./components/shared/routes";
 
 import App from "./components/shared/App";
@@ -20,13 +21,12 @@ import { StaticRouter, matchPath } from "react-router-dom"
 import favicon from 'serve-favicon'
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
-import { storeReducer } from './components/shared/store'
+import { storeReducer, initialState } from './components/shared/store'
 import { composeWithDevTools } from 'redux-devtools-extension'
+import isLogged from "./isLogged";
 
-
-let store = createStore(storeReducer, 100, composeWithDevTools());
-console.log(store.getState());
-console.log('store');
+// console.log(store.getState());
+// console.log('store');
 
 const app = express();
 
@@ -38,23 +38,32 @@ app.set('views', path.join(__dirname, '../views'));
 app.set('view engine', 'pug');
 
 app.use(session({secret: 'ssshhhhh'}));
+//TODO Change secret session for an env var
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use('/static', express.static(path.join(__dirname, '../public')));
-app.use(favicon(path.join(__dirname, '../public', 'favicon.ico')))
+app.use(favicon(path.join(__dirname, '../public', 'favicon.ico')));
 console.log('ads');
 console.log( path.join(__dirname, '../public') );
 
 app.use('/users', userRouter);
+app.use('/auth', authRouter);
+app.use('/plates', plateRouter);
 // app.use('/auth', authRouter);
 
-app.get("*", (req, res, next) => {
-    const activeRoute = routes.find((route) => matchPath(req.url, route)) || {}
+app.get("*", async (req, res, next) => {
+    const activeRoute = routes.find((route) => matchPath(req.url, route)) || {};
+    let logged = await isLogged(activeRoute, req);
+    console.log(await isLogged(activeRoute, req));
     const promise = activeRoute.fetchInitialData
         ? activeRoute.fetchInitialData(req.path)
-        : Promise.resolve()
+        : Promise.resolve();
+
+    initialState.logged = logged;
+
+    let store = createStore(storeReducer, initialState, composeWithDevTools());
 
     promise.then((data) => {
         const context = { data }
@@ -66,13 +75,14 @@ app.get("*", (req, res, next) => {
             </StaticRouter>
         );
 
-        var options = {
+        let options = {
             initialData: serialize(data),
+            initialStateStore: serialize(initialState),
             markup: markup
-        }
+        };
         
-        var htmlContent = pug.renderFile(path.join(__dirname, '../views/app.pug'), options)
-        console.log(htmlContent);
+        let htmlContent = pug.renderFile(path.join(__dirname, '../views/app.pug'), options);
+        // console.log(htmlContent);
         res.send(htmlContent)
 
     }).catch(next)

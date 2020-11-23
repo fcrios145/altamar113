@@ -8,8 +8,9 @@ import { Provider } from 'react-redux';
 import { storeReducer } from '../shared/store'
 import { composeWithDevTools } from 'redux-devtools-extension'
 
+const initialState = window.__INITIAL_DATA_STORE__;
 
-const store = createStore(storeReducer, 100, composeWithDevTools())
+const store = createStore(storeReducer, initialState, composeWithDevTools())
 
 hydrate(
     <BrowserRouter>

@@ -6,11 +6,9 @@ import Slider from '../browser/Slider'
 
 class Home extends React.Component {
     componentDidMount() {
-        this.props.setGlobalState({
-            imageInHeader:false,
-            showCategoryNavbar: false,
-            showPlateNavbar: false
-        })
+        this.props.dispatch({ "type": "SHOW_PLATE_NAVBAR", payload: false });
+        this.props.dispatch({ "type": "IMAGE_IN_HEADER", payload: false });
+        this.props.dispatch({ "type": "SHOW_CATEGORY_NAVBAR", payload: false });
     }
 
     render() {

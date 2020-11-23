@@ -1,6 +1,8 @@
 import React from 'react';
 import Home from "../browser/Home";
-import Login from './Login'
+import Admin from "../browser/Admin";
+import AdminPlates from "../browser/AdminPlates";
+import Login2 from '../browser/Login2'
 import Plate from "../browser/Plate";
 
 const routes =  [
@@ -15,22 +17,29 @@ const routes =  [
         protectedPage: false,
         component: Plate,
     },
+    {
+        path: '/login',
+        protectedPage: false,
+        component: Login2,
+    },
+    {
+        path: '/admin',
+        protectedPage: true,
+        exact: true,
+        component: Admin
+    },
+    {
+        path: '/admin/platillos',
+        protectedPage: true,
+        exact: true,
+        component: AdminPlates
+    }
     // {
     //     path: '/popular/:id',
     //     component: Grid,
     //     protectedPage: true,
     //     fetchInitialData: (path = '') => fetchPopularRepos(path.split('/').pop())
     // },
-    // {
-    //     path: '/pro',
-    //     authRequired: true,
-    //     component: ProtectedPage
-    // },
-    {
-        path: '/login',
-        protectedPage: false,
-        component: Login
-    }
 
 ];
 
