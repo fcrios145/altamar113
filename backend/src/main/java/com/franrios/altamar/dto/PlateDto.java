@@ -1,2 +1,3 @@
-package com.franrios.altamar.dto;public class PlateDto {
+package com.franrios.altamar.dto;
+public class PlateDto {
 }
