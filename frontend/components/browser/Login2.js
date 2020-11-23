@@ -1,34 +1,31 @@
 import React, { useState } from 'react';
 import axios from "axios";
-import {fakeAuth} from "./PrivateRoute";
 import { Redirect } from 'react-router-dom'
 import {connect} from "react-redux";
-
-const onSubmit = (e, username, password, dispatch) => {
-    e.preventDefault();
-
-    axios.post(`/auth/login`, {
-        "username": username,
-        "password": password
-    }).then((response) => {
-        console.log(response.data);
-        if(response.data) {
-            dispatch({ "type": "LOGGED_TRUE" });
-        }
-        fakeAuth.isAuthenticated = true;
-    }).catch((error) => {
-        console.log(error);
-    });
-};
 
 const Login2 = ({logged, dispatch}) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const onSubmit = (e, dispatch) => {
+        e.preventDefault();
+
+        axios.post(`/auth/login`, {
+            "username": username,
+            "password": password
+        }).then((response) => {
+            console.log(response.data);
+            if(response.data) {
+                dispatch({ "type": "LOGGED_TRUE" });
+            }
+        }).catch((error) => {
+            console.log(error);
+        });
+    };
     return(
         <React.Fragment>
             {logged && <Redirect to="/admin" />
             }
-            <form method='POST' onSubmit={(e) => onSubmit(e, username, password, dispatch)}>
+            <form method='POST' onSubmit={(e) => onSubmit(e, dispatch)}>
                 <label htmlFor="username">Username</label>
                 <input value={username} onChange={(e) => setUsername(e.target.value)} type="text" name='username'/>
 

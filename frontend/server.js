@@ -59,6 +59,8 @@ app.get("*", async (req, res, next) => {
         ? activeRoute.fetchInitialData(req.path)
         : Promise.resolve();
 
+    initialState.logged = logged;
+
     let store = createStore(storeReducer, initialState, composeWithDevTools());
 
     promise.then((data) => {

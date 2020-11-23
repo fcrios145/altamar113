@@ -1,34 +1,20 @@
 import React from 'react';
 import { Route, Redirect } from "react-router-dom";
 import axios from 'axios';
+import {connect} from "react-redux";
 
-export const fakeAuth = {
-    isAuthenticated: false,
-    authenticate(cb) {
-        fakeAuth.isAuthenticated = true;
-        setTimeout(cb, 100); // fake async
-    },
-    signOut(cb) {
-        fakeAuth.isAuthenticated = false;
-        setTimeout(cb, 100);
+// export const logged = async () => {
+//     const data =  await axios.get(`/auth/logged`);
+//     return data;
+// };
 
-    }
-};
-
-export const logged = async () => {
-    const data =  await axios.get(`/auth/logged`);
-    return data;
-};
-
-// A wrapper for <Route> that redirects to the login
-// screen if you're not yet authenticated.
-function PrivateRoute({ component: Component, logged, ...rest }) {
+function PrivateRoute2({ component: Component, path, exact, logged }) {
     return (
         <Route
-            {...rest}
+            key={path} path={path} exact={exact}
             render={({ location, ...props }) =>
                 logged ? (
-                    <Component {...rest} {...props}></Component>
+                    <Component {...props} />
                 ) : (
                     <Redirect
                         to={{
@@ -42,5 +28,13 @@ function PrivateRoute({ component: Component, logged, ...rest }) {
     );
 }
 
+const mapStateToProps = (state /*, ownProps*/) => {
+    return {
+        logged: state.logged
+    }
+};
 
-export default  PrivateRoute
+export default connect(
+    mapStateToProps,
+    null
+)(PrivateRoute2)
