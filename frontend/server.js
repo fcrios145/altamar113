@@ -10,8 +10,9 @@ import http from 'http';
 import { renderToString } from "react-dom/server";
 import pug from 'pug';
 
-import userRouter from './routes/users'
-import authRouter from './routes/auth'
+import userRouter from './routes/users';
+import authRouter from './routes/auth';
+import plateRouter from './routes/plateRouter';
 import routes from "./components/shared/routes";
 
 import App from "./components/shared/App";
@@ -49,6 +50,7 @@ console.log( path.join(__dirname, '../public') );
 
 app.use('/users', userRouter);
 app.use('/auth', authRouter);
+app.use('/plates', plateRouter);
 // app.use('/auth', authRouter);
 
 app.get("*", async (req, res, next) => {
