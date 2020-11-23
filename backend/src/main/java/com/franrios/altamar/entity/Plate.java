@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table
-public class PlateEntity {
+public class Plate {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long plateId;
@@ -18,11 +18,11 @@ public class PlateEntity {
     @Column
     private Boolean active;
 
-    public PlateEntity() {
+    public Plate() {
 
     }
 
-    public PlateEntity(Long plateId, String name, String description, boolean active) {
+    public Plate(Long plateId, String name, String description, boolean active) {
         this.plateId = plateId;
         this.name = name;
         this.description = description;
