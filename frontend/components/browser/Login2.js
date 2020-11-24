@@ -2,6 +2,10 @@ import React, { useState } from 'react';
 import axios from "axios";
 import { Redirect } from 'react-router-dom'
 import {connect} from "react-redux";
+/*
+    TODO all axios calls, refactor into another file, may be, separating by method type
+    I'm having the same logic in different files
+*/
 
 const Login2 = ({logged, dispatch}) => {
     const [username, setUsername] = useState('');
