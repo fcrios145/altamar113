@@ -1,14 +1,28 @@
 import React, {Fragment, useEffect, useState} from "react";
 import {connect} from "react-redux";
+import axios from "axios";
 
 
-const PlateEdition = ({plateSelected}) => {
+const PlateEdition = ({plateSelected, match: {params}}) => {
     const [plateSelectedClone, setPlateSelectedClone] = useState({});
     const onSubmitForm = (e) => {
+        e.preventDefault();
         console.log(e);
+        console.log(params);
+    }
+    const getPlateFromServer = () => {
+        return axios.get(`/plates/${params.platillosId}`)
     }
     useEffect(() => {
-        setPlateSelectedClone(JSON.parse(JSON.stringify(plateSelected)));
+        if(Object.keys(plateSelected).length === 0) { //if object is empty
+            getPlateFromServer().then(({data}) => {
+                setPlateSelectedClone(JSON.parse(JSON.stringify(data)));
+            }).catch(error => {
+                console.log(error)
+            })
+        } else {
+            setPlateSelectedClone(JSON.parse(JSON.stringify(plateSelected)));
+        }
     }, [plateSelected])
     return(
         <Fragment>
@@ -18,6 +32,7 @@ const PlateEdition = ({plateSelected}) => {
                 <input type="text" value={plateSelectedClone.name} name="name"/>
                 <label htmlFor="description">Descripcion</label>
                 <input type="text" name="description" value={plateSelectedClone.description}/>
+                <button type="submit">Enviar</button>
             </form>
         </Fragment>
     )

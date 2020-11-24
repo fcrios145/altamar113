@@ -12,7 +12,7 @@ router.get('/', async function(req, res, next) {
 
     try {
         // const postForm = req.body;
-        data =  await axios.get(`http://localhost:8080/api/plates`, {
+        data =  await axios.get(`http://localhost:8080/api/plates/`, {
             headers: {
                 "Authorization": `Bearer ${token}`
             }
@@ -20,7 +20,29 @@ router.get('/', async function(req, res, next) {
     } catch(error) {
         console.log(error);
     }
-    console.log(data);
+    // console.log(data);
+    res.send(data.data)
+});
+
+/* GET plate by id. */
+router.get('/:plateId', async function(req, res, next) {
+    let data = {};
+    const { token } = req.session;
+    if(token === 'undefined') {
+        return [];
+    }
+    //TODO try parse the req param, to int only, to avoid errors
+    try {
+        // const postForm = req.body;
+        data =  await axios.get(`http://localhost:8080/api/plates/${req.params.plateId}`, {
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        });
+    } catch(error) {
+        console.log(error);
+    }
+    // console.log(data);
     res.send(data.data)
 });
 
