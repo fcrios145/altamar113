@@ -366,6 +366,69 @@ footer a {
   display: block;
 }
 
+.center-horizontal {
+  border: 1px solid red;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-login {
+  display: flex;
+  flex-direction: column;
+  padding: 3em;
+  background-color: #B2DAFB;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+form > label {
+  font-weight: bold;
+  font-size: 1em;
+  color: #333333;
+  margin-bottom: 0.5em;
+}
+
+form > input {
+  margin-bottom: 1em;
+  width: 16em;
+  height: 3em;
+  background-color: #E7F4FE;
+  border: 0px;
+}
+
+form > input:last-of-type {
+  margin-bottom: 2em;
+}
+
+table {
+  width: 100%;
+}
+
+table > thead > tr > th{
+  color: #000000;
+}
+
+.center-table {
+  width: 80%;
+  margin: 0 auto;
+}
+
+table tr {
+  text-align: center;
+}
+
+table tr td {
+  padding: 1.4em 0;
+}
+
+table tr:nth-child(even) {
+  background: #B2DAFB;
+}
+
+table tr:nth-child(odd) {
+  background: #C5E4FC;
+}
+
 @media only screen and (max-width: 568px) {
   #app > div > header > nav > ul > li:nth-child(4) {
     display: none;

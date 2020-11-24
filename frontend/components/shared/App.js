@@ -36,7 +36,7 @@ class App extends Component {
                         )}
                         {routes
                             .filter(route => route.protectedPage)
-                            .map(rest => <PrivateRoute2 {...rest}/>)
+                            .map(rest => <PrivateRoute2 key={rest.path} {...rest}/>)
                         }
 
                         <Route render={(props) => <NoMatch {...props} />}/>

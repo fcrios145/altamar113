@@ -23,17 +23,20 @@ const Login2 = ({logged, dispatch}) => {
     };
     return(
         <React.Fragment>
-            {logged && <Redirect to="/admin" />
+            {logged && <Redirect to="/admin/dashboard" />
             }
-            <form method='POST' onSubmit={(e) => onSubmit(e, dispatch)}>
-                <label htmlFor="username">Username</label>
-                <input value={username} onChange={(e) => setUsername(e.target.value)} type="text" name='username'/>
+            <div className="topbar-color"></div>
+            <div className="center-horizontal wrapper">
+                <form className='form-login' method='POST' onSubmit={(e) => onSubmit(e, dispatch)}>
+                    <label htmlFor="username">Username</label>
+                    <input value={username} onChange={(e) => setUsername(e.target.value)} type="text" name='username'/>
 
-                <label htmlFor="password">Password</label>
-                <input value={password} onChange={(e) => setPassword(e.target.value)} type="password" name='password'/>
+                    <label htmlFor="password">Password</label>
+                    <input value={password} onChange={(e) => setPassword(e.target.value)} type="password" name='password'/>
 
-                <button type='submit'>Entrar</button>
-            </form>
+                    <button className="button" type='submit'>Entrar</button>
+                </form>
+            </div>
         </React.Fragment>
     )
 };

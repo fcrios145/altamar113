@@ -2,8 +2,10 @@ import React from 'react';
 import Home from "../browser/Home";
 import Admin from "../browser/Admin";
 import AdminPlates from "../browser/AdminPlates";
+import PlateEdition from "../browser/PlateEdition";
 import Login2 from '../browser/Login2'
 import Plate from "../browser/Plate";
+import Dashboard from "../browser/Dashboard";
 
 const routes =  [
     {
@@ -29,10 +31,22 @@ const routes =  [
         component: Admin
     },
     {
+        path: '/admin/dashboard',
+        protectedPage: true,
+        exact: true,
+        component: Dashboard
+    },
+    {
         path: '/admin/platillos',
         protectedPage: true,
         exact: true,
         component: AdminPlates
+    },
+    {
+        path: '/admin/platillos/:platillosId',
+        protectedPage: true,
+        exact: true,
+        component: PlateEdition
     }
     // {
     //     path: '/popular/:id',

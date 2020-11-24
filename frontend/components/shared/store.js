@@ -5,6 +5,7 @@ export const initialState = {
     imageInHeader: true,
     showCategoryNavbar: false,
     showPlateNavbar: false,
+    plateSelected: {},
     categories: [
         {
             text: 'Ceviches',
@@ -61,6 +62,8 @@ export function storeReducer(state = initialState, action) {
             return {...state, logged: false};
         case 'LOGGED_TRUE':
             return {...state, logged: true};
+        case "SET_PLATE_SELECTED":
+            return {...state, plateSelected: action.payload}
         default:
             return state;
     }

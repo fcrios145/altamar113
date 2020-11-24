@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface PlateRepository extends CrudRepository<Plate, Long> {
-    public List<Plate> getAllByActiveIsTrue();
+    public List<Plate> findAll();
 }

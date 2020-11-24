@@ -16,6 +16,6 @@ public class PlateService {
     PlateRepository plateRepository;
 
     public List<Plate> GetAll() {
-        return plateRepository.getAllByActiveIsTrue();
+        return plateRepository.findAll();
     }
 }
