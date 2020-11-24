@@ -18,15 +18,28 @@ public class Plate {
     @Column
     private Boolean active;
 
+    @ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "category_id_fk")
+    private Category category;
+
     public Plate() {
 
     }
 
-    public Plate(Long plateId, String name, String description, boolean active) {
+    public Plate(Long plateId, String name, String description, Boolean active, Category category) {
         this.plateId = plateId;
         this.name = name;
         this.description = description;
         this.active = active;
+        this.category = category;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     public Boolean getActive() {
