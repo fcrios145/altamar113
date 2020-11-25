@@ -8,6 +8,7 @@ import logger from 'morgan';
 import debug from 'debug';
 import http from 'http';
 import { renderToString } from "react-dom/server";
+import { ServerStyleSheet } from 'styled-components'
 import pug from 'pug';
 
 import userRouter from './routes/users';
@@ -31,7 +32,6 @@ import isLogged from "./isLogged";
 const app = express();
 
 app.use(bodyParser.json());
-
 
 // view engine setup
 app.set('views', path.join(__dirname, '../views'));
@@ -64,28 +64,43 @@ app.get("*", async (req, res, next) => {
     initialState.logged = logged;
 
     let store = createStore(storeReducer, initialState, composeWithDevTools());
+    
+    const sheet = new ServerStyleSheet(); // <-- creating out stylesheet
+
+    
+    
+    
 
     promise.then((data) => {
         const context = { data }
         const markup = renderToString(
+            sheet.collectStyles(
             <StaticRouter location={req.url} context={context}>
                 <Provider store={store}>
                     <App />
                 </Provider>
             </StaticRouter>
-        );
+        ));
 
+        const styleTags = sheet.getStyleTags(); // <-- getting all the tags from the sheet
+        // console.log(styleTags);
         let options = {
             initialData: serialize(data),
             initialStateStore: serialize(initialState),
-            markup: markup
+            markup: markup,
+            styles: styleTags
         };
+
         
         let htmlContent = pug.renderFile(path.join(__dirname, '../views/app.pug'), options);
         // console.log(htmlContent);
         res.send(htmlContent)
 
-    }).catch(next)
+    })
+    .catch(next)
+    .finally(() => {
+        sheet.seal()
+    })
 });
 
 

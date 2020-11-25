@@ -3,6 +3,14 @@ import Layout from "./Layout";
 import {NavLink} from "react-router-dom";
 import { connect } from 'react-redux'
 import Slider from '../browser/Slider'
+import styled from 'styled-components'
+
+// Create a Title component that'll render an <h1> tag with some styles
+const Title = styled.h1`
+  font-size: 1.5em;
+  text-align: center;
+  color: palevioletred;
+`;
 
 class Home extends React.Component {
     componentDidMount() {
@@ -14,6 +22,9 @@ class Home extends React.Component {
     render() {
         return (
             <Layout {...this.props}>
+                <Title>
+                    Hola Mundo
+                </Title>
                 {/* <h1>Counter: {this.props.counter}</h1>
                 <button onClick={() => this.props.dispatch({ "type": "INCREMENT" })}>Sum</button> */}
                 <div className="container rows" style={{margin: '1.5em 0'}}>
