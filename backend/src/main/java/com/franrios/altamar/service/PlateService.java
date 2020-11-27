@@ -21,11 +21,11 @@ public class PlateService {
         return plateRepository.findAll();
     }
 
-    public Optional<Plate> GetByPlateId(Long plateId) {
-        return plateRepository.findByPlateId(plateId);
-    }
+    public Optional<Plate> GetByPlateId(Long plateId) { return plateRepository.findByPlateId(plateId); }
 
-    public Plate Save(Plate plate) {
-        return plateRepository.save(plate);
-    }
+    public Plate Save(Plate plate) { return plateRepository.save(plate); }
+
+    public Plate Update(Plate plate) {return plateRepository.save(plate);}
+
+    public void Delete(Long plateId) {plateRepository.deleteById(plateId);}
 }

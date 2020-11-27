@@ -6,13 +6,19 @@ import com.franrios.altamar.entity.Plate;
 import com.franrios.altamar.service.CategoryService;
 import com.franrios.altamar.service.MapValidationErrorService;
 import com.franrios.altamar.service.PlateService;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.net.ssl.HttpsURLConnection;
 import javax.validation.Valid;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Positive;
+import javax.validation.constraints.PositiveOrZero;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,8 +42,15 @@ public class PlateController {
     }
 
     @GetMapping("/{plateId}")
-    public ResponseEntity<?> GetPlate(@PathVariable("plateId") Long plateId) {
+    public ResponseEntity<?> GetPlate(
+            @PathVariable("plateId") @NotBlank @Positive Long plateId) {
+
         Optional<Plate> plate = plateService.GetByPlateId(plateId);
+
+        if(!plate.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+
         return new ResponseEntity(plate, HttpStatus.OK);
     }
 
@@ -59,6 +72,48 @@ public class PlateController {
         plate.setDescription(plateDto.getDescription());
         plateService.Save(plate);
         return new ResponseEntity<>(plate, HttpStatus.OK);
+    }
+
+    @PutMapping("/{plateId}")
+    public ResponseEntity<?> UpdatePlate(
+            @PathVariable("plateId") Long plateId,
+            @Valid @RequestBody final PlateDto plateDto, BindingResult bindingResult){
+        ResponseEntity<?> errorMap = mapValidationErrorService.MapValidationService(bindingResult);
+        if(errorMap != null){
+            return errorMap;
+        }
+        //Get plate
+        Optional<Plate> plate = plateService.GetByPlateId(plateId);
+        if(!plate.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        //Get Category
+        Optional<Category> category = categoryService.findByCategoryId(plateDto.getCategoryIdFk());
+        if(!category.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        Plate plateInstance = plate.get();
+        plateInstance.setName(plateDto.getName());
+        plateInstance.setDescription(plateDto.getDescription());
+        plateInstance.setCategory(category.get());
+        return new ResponseEntity<>(plateService.Update(plateInstance), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{plateId}")
+    public ResponseEntity<?> DeletePlate(
+            @PathVariable("plateId") Long plateId){
+        //Get plate
+        Optional<Plate> plate = plateService.GetByPlateId(plateId);
+        if(!plate.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        try {
+            plateService.Delete(plateId);
+        } catch (Exception ex){
+            //TODO log error
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }

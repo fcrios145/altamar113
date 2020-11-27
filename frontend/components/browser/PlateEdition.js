@@ -2,11 +2,13 @@ import React, {Fragment, useEffect, useState} from "react";
 import {connect} from "react-redux";
 import axios from "axios";
 import { useForm } from "../hooks/useForm";
-
+import { useHistory } from "react-router-dom"
 
 const PlateEdition = ({plateSelected, match: {params}}) => {
+    let history = useHistory();
     const [plateSelectedClone, setPlateSelectedClone] = useState({});
     const [{name, description, categoryIdFk}, setValues, handleValues] = useForm({name: "", description: "", categoryIdFk: 1});
+    const [showDeleteButton, setshowDeleteButton] = useState(() => params.platillosId !== 'add');
 
     const onSubmitForm = (e) => {
         e.preventDefault();
@@ -16,7 +18,7 @@ const PlateEdition = ({plateSelected, match: {params}}) => {
         if(params.platillosId === "add") { //Save
             axios.post(`/plates/`, {name, description, categoryIdFk})
         } else {
-            axios.put(`/plates/${params.platillosId}`, {name, description, categoryIdFk})
+            axios.put(`/plates/${params.platillosId}`, {name, description, categoryIdFk: 1})
         }
     }
     const getPlateFromServer = () => {
@@ -31,9 +33,15 @@ const PlateEdition = ({plateSelected, match: {params}}) => {
             })
         } else {
             var clonePlate = JSON.parse(JSON.stringify(plateSelected));
-            setValues(clonePlate);
+            setValues(({...clonePlate, categoryIdFk: 1}));
         }
     }, [plateSelected])
+
+    const deleteButtonClick = (e) => {
+        axios.delete(`/plates/${params.platillosId}`).then(response => {
+            history.push(`/admin/platillos/`)
+        })
+    }
 
     return(
         <Fragment>
@@ -48,6 +56,12 @@ const PlateEdition = ({plateSelected, match: {params}}) => {
 
                 <button type="submit">Guardar</button>
             </form>
+            
+            {
+                showDeleteButton && <button onClick={deleteButtonClick} >Eliminar</button>  
+            }
+            
+            
         </Fragment>
     )
 }

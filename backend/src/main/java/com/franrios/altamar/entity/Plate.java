@@ -18,7 +18,7 @@ public class Plate {
     @Column
     private Boolean active;
 
-    @ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne(optional = false, fetch = FetchType.EAGER)
     @JoinColumn(name = "category_id_fk")
     private Category category;
 

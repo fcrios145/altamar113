@@ -71,7 +71,7 @@ router.post('/', async function(req, res, next) {
 });
 
 /* PUT update plate */
-router.put('/', async function(req, res, next) {
+router.put('/:plateId', async function(req, res, next) {
     let data = {};
     const { token } = req.session;
     if(token === 'undefined') {
@@ -82,7 +82,31 @@ router.put('/', async function(req, res, next) {
     console.log("-----------------")
     try {
         // const postForm = req.body;
-        data =  await axios.put(`http://localhost:8080/api/plates/`, req.body, {
+        data =  await axios.put(`http://localhost:8080/api/plates/${req.params.plateId}`, req.body, {
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        });
+    } catch(error) {
+        console.log(error);
+    }
+    // console.log(data);
+    res.send(data.data)
+});
+
+/* PUT update plate */
+router.delete('/:plateId', async function(req, res, next) {
+    let data = {};
+    const { token } = req.session;
+    if(token === 'undefined') {
+        return [];
+    }
+    console.log("-----------------")
+    console.log(req.body)
+    console.log("-----------------")
+    try {
+        // const postForm = req.body;
+        data =  await axios.delete(`http://localhost:8080/api/plates/${req.params.plateId}`, {
             headers: {
                 "Authorization": `Bearer ${token}`
             }
