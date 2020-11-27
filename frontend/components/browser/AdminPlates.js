@@ -25,8 +25,14 @@ const AdminPlate = ({dispatch}) => {
         history.push(`/admin/platillos/${plateSelected.plateId}`)
     }
 
+    const onClickAdd = (e) => {
+        dispatch({"type": "SET_PLATE_SELECTED", payload: {}})
+        history.push(`/admin/platillos/add`)
+    }
+
     return(
         <React.Fragment>
+            <button onClick={onClickAdd}>Nuevo</button>
             <h2>Platillos</h2>
             <div className="center-table">
                 <table>

@@ -43,7 +43,7 @@ const routes =  [
         component: AdminPlates
     },
     {
-        path: '/admin/platillos/:platillosId',
+        path: '/admin/platillos/:platillosId?',
         protectedPage: true,
         exact: true,
         component: PlateEdition
