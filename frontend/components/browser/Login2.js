@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from "axios";
 import { Redirect } from 'react-router-dom'
 import {connect} from "react-redux";
+import Layoutadmin from './LayoutAdmin';
 /*
     TODO all axios calls, refactor into another file, may be, separating by method type
     I'm having the same logic in different files
@@ -26,7 +27,7 @@ const Login2 = ({logged, dispatch}) => {
         });
     };
     return(
-        <React.Fragment>
+        <Layoutadmin>
             {logged && <Redirect to="/admin/dashboard" />
             }
             <div className="topbar-color"></div>
@@ -41,7 +42,7 @@ const Login2 = ({logged, dispatch}) => {
                     <button className="button" type='submit'>Entrar</button>
                 </form>
             </div>
-        </React.Fragment>
+        </Layoutadmin>
     )
 };
 

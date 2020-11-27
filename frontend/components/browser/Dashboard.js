@@ -1,9 +1,10 @@
 import React from "react";
 import {Link} from "react-router-dom";
+import Layoutadmin from "./LayoutAdmin";
 
 const Dashboard = () => {
     return (
-        <React.Fragment>
+        <Layoutadmin>
             <h2>dashboard</h2>
             <ul>
                 <li>
@@ -12,7 +13,7 @@ const Dashboard = () => {
                     </Link>
                 </li>
             </ul>
-        </React.Fragment>
+        </Layoutadmin>
 
     )
 }

@@ -33,7 +33,12 @@ const PlateEdition = ({plateSelected, match: {params}}) => {
             })
         } else {
             var clonePlate = JSON.parse(JSON.stringify(plateSelected));
-            setValues(({...clonePlate, categoryIdFk: 1}));
+            setValues(({
+                categoryIdFk: 1,
+                name: "",
+                description: "",
+                ...clonePlate
+            }));
         }
     }, [plateSelected])
 

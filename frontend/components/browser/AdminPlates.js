@@ -2,6 +2,7 @@ import React, {useState, useEffect} from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import {connect} from "react-redux";
+import LayoutAdmin from "./LayoutAdmin";
 
 
 
@@ -31,9 +32,8 @@ const AdminPlate = ({dispatch}) => {
     }
 
     return(
-        <React.Fragment>
+        <LayoutAdmin>
             <button onClick={onClickAdd}>Nuevo</button>
-            <h2>Platillos</h2>
             <div className="center-table">
                 <table>
                     <thead>
@@ -48,7 +48,7 @@ const AdminPlate = ({dispatch}) => {
 
                 </table>
             </div>
-        </React.Fragment>
+        </LayoutAdmin>
     )
 }
 
