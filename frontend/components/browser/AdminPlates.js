@@ -3,7 +3,7 @@ import axios from "axios";
 import { useHistory } from "react-router-dom";
 import {connect} from "react-redux";
 import LayoutAdmin from "./LayoutAdmin";
-
+import {FloatingButton} from "../styled/StyledComponents";
 
 
 const AdminPlate = ({dispatch}) => {
@@ -33,9 +33,10 @@ const AdminPlate = ({dispatch}) => {
 
     return(
         <LayoutAdmin>
-            <button onClick={onClickAdd}>Nuevo</button>
+            <FloatingButton onClick={onClickAdd}>Nuevo</FloatingButton>
+            {/*<button onClick={onClickAdd}>Nuevo</button>*/}
             <div className="center-table">
-                <table>
+                <table style={{marginTop: "1em"}}>
                     <thead>
                     </thead>
                     <tbody>

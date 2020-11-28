@@ -3,12 +3,21 @@ import {connect} from "react-redux";
 import axios from "axios";
 import { useForm } from "../hooks/useForm";
 import { useHistory } from "react-router-dom"
+import Layoutadmin from "./LayoutAdmin";
+import {
+    Form, Wrapper, Input,
+    TextArea, ButtonsContainer, ButtonGreen,
+    ButtonRed, ButtonBlue, ButtonOrange} from "../styled/StyledComponents";
 
 const PlateEdition = ({plateSelected, match: {params}}) => {
     let history = useHistory();
     const [plateSelectedClone, setPlateSelectedClone] = useState({});
     const [{name, description, categoryIdFk}, setValues, handleValues] = useForm({name: "", description: "", categoryIdFk: 1});
     const [showDeleteButton, setshowDeleteButton] = useState(() => params.platillosId !== 'add');
+    const [textButtonSaveUpdate, settextButtonSaveUpdate] = useState(
+        () =>
+        params.platillosId !== 'add' ? "Actualizar" : "Guardar"
+    )
 
     const onSubmitForm = (e) => {
         e.preventDefault();
@@ -43,31 +52,47 @@ const PlateEdition = ({plateSelected, match: {params}}) => {
     }, [plateSelected])
 
     const deleteButtonClick = (e) => {
-        axios.delete(`/plates/${params.platillosId}`).then(response => {
-            history.push(`/admin/platillos/`)
-        })
+        if (confirm(`Estas seguro que deseas eliminar ${name}`)) {
+            axios.delete(`/plates/${params.platillosId}`).then(response => {
+                history.push(`/admin/platillos/`)
+            })
+        } else {
+
+        }
+
+    }
+
+    const onClickGoBack = () => {
+        history.push(`/admin/platillos/`);
     }
 
     return(
-        <Fragment>
-            <h2>Plate Edition</h2>
-            <form onSubmit={onSubmitForm}>
+        <Layoutadmin>
+            <Wrapper>
+                <ButtonsContainer>
+                    <ButtonGreen onClick={onSubmitForm} type="button">{textButtonSaveUpdate}</ButtonGreen>
+                    {
+                        showDeleteButton && <ButtonRed onClick={deleteButtonClick} >Eliminar</ButtonRed>
+                    }
+                    <ButtonBlue onClick={onClickGoBack}>Regresar</ButtonBlue>
+                    <ButtonOrange>Inactivo</ButtonOrange>
+                </ButtonsContainer>
+                <Form onSubmit={onSubmitForm}>
 
-                <label htmlFor="name">Nombre</label>
-                <input type="text" name="name" value={name} onChange={handleValues} />
+                    <label htmlFor="name">Nombre</label>
+                    <Input type="text" name="name" value={name} onChange={handleValues} />
 
-                <label htmlFor="description">Descripcion</label>
-                <input type="text" name="description" value={description} onChange={handleValues}/>
+                    <label htmlFor="description">Descripcion</label>
+                    <TextArea type="text" name="description" value={description} onChange={handleValues}/>
 
-                <button type="submit">Guardar</button>
-            </form>
+
+                </Form>
+            </Wrapper>
             
-            {
-                showDeleteButton && <button onClick={deleteButtonClick} >Eliminar</button>  
-            }
+
             
             
-        </Fragment>
+        </Layoutadmin>
     )
 }
 
