@@ -12,6 +12,7 @@ const AdminPlate = ({dispatch}) => {
         return axios.get(`/plates`); //=> {
     }
     const [ plates, setPlates ] = useState([]);
+
     useEffect(() =>  {
         getPlates().then(({data}) => {
             setPlates(data)
@@ -19,6 +20,8 @@ const AdminPlate = ({dispatch}) => {
             console.log(error);
         });
     }, []);
+
+   
 
     const onClickTableElement = ({currentTarget}) => {
         const plateSelected = JSON.parse(currentTarget.getAttribute("data"));

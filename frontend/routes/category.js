@@ -2,7 +2,7 @@ import express from 'express'
 const router = express.Router();
 import axios from 'axios'
 
-/* GET plates listing. */
+/* GET categories listing. */
 router.get('/', async function(req, res, next) {
     let data = {};
     const { token } = req.session;
@@ -12,7 +12,7 @@ router.get('/', async function(req, res, next) {
 
     try {
         // const postForm = req.body;
-        data =  await axios.get(`http://localhost:8080/api/plates/`, {
+        data =  await axios.get(`http://localhost:8080/api/categories/`, {
             headers: {
                 "Authorization": `Bearer ${token}`
             }
@@ -25,7 +25,7 @@ router.get('/', async function(req, res, next) {
 });
 
 /* GET plate by id. */
-router.get('/:plateId', async function(req, res, next) {
+router.get('/:categoryId', async function(req, res, next) {
     let data = {};
     const { token } = req.session;
     if(token === 'undefined') {
@@ -34,7 +34,7 @@ router.get('/:plateId', async function(req, res, next) {
     //TODO try parse the req param, to int only, to avoid errors
     try {
         // const postForm = req.body;
-        data =  await axios.get(`http://localhost:8080/api/plates/${req.params.plateId}`, {
+        data =  await axios.get(`http://localhost:8080/api/categories/${req.params.categoryId}`, {
             headers: {
                 "Authorization": `Bearer ${token}`
             }
@@ -42,6 +42,7 @@ router.get('/:plateId', async function(req, res, next) {
     } catch(error) {
         console.log(error);
     }
+    // console.log(data);
     res.send(data.data)
 });
 
@@ -57,7 +58,7 @@ router.post('/', async function(req, res, next) {
     console.log("-----------------")
     try {
         // const postForm = req.body;
-        data =  await axios.post(`http://localhost:8080/api/plates/`, req.body, {
+        data =  await axios.post(`http://localhost:8080/api/categories/`, req.body, {
             headers: {
                 "Authorization": `Bearer ${token}`
             }
@@ -70,7 +71,7 @@ router.post('/', async function(req, res, next) {
 });
 
 /* PUT update plate */
-router.put('/:plateId', async function(req, res, next) {
+router.put('/:categoryId', async function(req, res, next) {
     let data = {};
     const { token } = req.session;
     if(token === 'undefined') {
@@ -81,7 +82,7 @@ router.put('/:plateId', async function(req, res, next) {
     console.log("-----------------")
     try {
         // const postForm = req.body;
-        data =  await axios.put(`http://localhost:8080/api/plates/${req.params.plateId}`, req.body, {
+        data =  await axios.put(`http://localhost:8080/api/categories/${req.params.categoryId}`, req.body, {
             headers: {
                 "Authorization": `Bearer ${token}`
             }
@@ -94,7 +95,7 @@ router.put('/:plateId', async function(req, res, next) {
 });
 
 /* PUT update plate */
-router.delete('/:plateId', async function(req, res, next) {
+router.delete('/:categoryId', async function(req, res, next) {
     let data = {};
     const { token } = req.session;
     if(token === 'undefined') {
@@ -105,7 +106,7 @@ router.delete('/:plateId', async function(req, res, next) {
     console.log("-----------------")
     try {
         // const postForm = req.body;
-        data =  await axios.delete(`http://localhost:8080/api/plates/${req.params.plateId}`, {
+        data =  await axios.delete(`http://localhost:8080/api/categories/${req.params.categoryId}`, {
             headers: {
                 "Authorization": `Bearer ${token}`
             }

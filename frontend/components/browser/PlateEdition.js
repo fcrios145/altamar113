@@ -1,18 +1,25 @@
-import React, {Fragment, useEffect, useState} from "react";
+import React, {Fragment, useEffect, useState, useRef} from "react";
 import {connect} from "react-redux";
 import axios from "axios";
 import { useForm } from "../hooks/useForm";
 import { useHistory } from "react-router-dom"
 import Layoutadmin from "./LayoutAdmin";
 import {
-    Form, Wrapper, Input,
+    Form, Wrapper, Input, Select, InputFileButton,
     TextArea, ButtonsContainer, ButtonGreen,
     ButtonRed, ButtonBlue, ButtonOrange} from "../styled/StyledComponents";
 
 const PlateEdition = ({plateSelected, match: {params}}) => {
+    const inputFileElement = useRef(null);
     let history = useHistory();
-    const [plateSelectedClone, setPlateSelectedClone] = useState({});
-    const [{name, description, categoryIdFk}, setValues, handleValues] = useForm({name: "", description: "", categoryIdFk: 1});
+    const [ categories, setCategories ] = useState([]);
+    const [{name, description, category: {categoryId}}, setValues, handleValues] = useForm({
+            name: "",
+            description: "",
+            category: {
+                categoryId: 1
+            }
+        });
     const [showDeleteButton, setshowDeleteButton] = useState(() => params.platillosId !== 'add');
     const [textButtonSaveUpdate, settextButtonSaveUpdate] = useState(
         () =>
@@ -23,11 +30,11 @@ const PlateEdition = ({plateSelected, match: {params}}) => {
         e.preventDefault();
         console.log(e);
         console.log(params);
-        // plateSelectedClone.categoryIdFk = 1;
+        // plateSelectedClone.categoryId = 1;
         if(params.platillosId === "add") { //Save
-            axios.post(`/plates/`, {name, description, categoryIdFk})
+            axios.post(`/plates/`, {name, description, categoryId})
         } else {
-            axios.put(`/plates/${params.platillosId}`, {name, description, categoryIdFk: 1})
+            axios.put(`/plates/${params.platillosId}`, {name, description, categoryId: 1})
         }
     }
     const getPlateFromServer = () => {
@@ -36,20 +43,25 @@ const PlateEdition = ({plateSelected, match: {params}}) => {
     useEffect(() => {
         if(Object.keys(plateSelected).length === 0 && params.platillosId !== "add") { //if object is empty and is not add
             getPlateFromServer().then(({data}) => {
-                setPlateSelectedClone(JSON.parse(JSON.stringify(data)));
+                setValues(({
+                    ...data
+                }));
             }).catch(error => {
                 console.log(error)
             })
         } else {
             var clonePlate = JSON.parse(JSON.stringify(plateSelected));
             setValues(({
-                categoryIdFk: 1,
-                name: "",
-                description: "",
                 ...clonePlate
             }));
         }
     }, [plateSelected])
+
+    useEffect(() => {
+        axios.get('/categories').then(data => {
+            setCategories(data.data);
+        })
+    }, [])
 
     const deleteButtonClick = (e) => {
         if (confirm(`Estas seguro que deseas eliminar ${name}`)) {
@@ -64,6 +76,16 @@ const PlateEdition = ({plateSelected, match: {params}}) => {
 
     const onClickGoBack = () => {
         history.push(`/admin/platillos/`);
+    }
+
+    const handleClickFile = event => {
+        inputFileElement.current.click();       
+    }
+
+    const handleChangeFile = event => {
+        const fileUploaded = event.target.files[0];
+        console.log(fileUploaded);
+        // props.handleFile(fileUploaded)
     }
 
     return(
@@ -82,9 +104,17 @@ const PlateEdition = ({plateSelected, match: {params}}) => {
                     <label htmlFor="name">Nombre</label>
                     <Input type="text" name="name" value={name} onChange={handleValues} />
 
+                    <label htmlFor="name">Categoria</label>
+                    <Select name="category[categoryId]" id="category" value={categoryId} onChange={handleValues} >
+                        {categories.map(category => <option key={category.categoryId} value={category.categoryId}>{category.name} </option> )}
+                    </Select>
+
                     <label htmlFor="description">Descripcion</label>
                     <TextArea type="text" name="description" value={description} onChange={handleValues}/>
-
+                    
+                    <label htmlFor="image">Imagen</label>
+                    <InputFileButton onClick={handleClickFile}>Subir Imagen</InputFileButton>
+                    <input onChange={handleChangeFile} style={{display: 'none'}} ref={inputFileElement} type="file"/>
 
                 </Form>
             </Wrapper>

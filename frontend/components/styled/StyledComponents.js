@@ -15,11 +15,29 @@ export const Input = styled.input`
   width: 100%
 `;
 
+export const Select = styled.select`
+  width: 100%;
+  background-color: #E7F4FE;
+  border: 0px;
+  height: 3em;
+  margin-bottom: 1em;
+`;
+
+export const InputFileButton = styled.button`
+    max-width: 13em;
+    height: 4em;
+    border: 0;
+    background-color: #6597FB;
+    color: white;
+    font-weight: bold;
+`;
+
 export const TextArea = styled.textarea`
   width: 100%;
   height: 8.5em;
   background-color: #E7F4FE;
   border: 0px;
+  margin-bottom: 1em;
 `;
 
 export const ButtonsContainer = styled.div`

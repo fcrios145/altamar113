@@ -18,6 +18,9 @@ public class Plate {
     @Column
     private Boolean active;
 
+    @Column
+    private String imagePath;
+
     @OneToOne(optional = false, fetch = FetchType.EAGER)
     @JoinColumn(name = "category_id_fk")
     private Category category;
@@ -26,12 +29,21 @@ public class Plate {
 
     }
 
-    public Plate(Long plateId, String name, String description, Boolean active, Category category) {
+    public Plate(Long plateId, String name, String description, Boolean active, Category category, String imagePath) {
         this.plateId = plateId;
         this.name = name;
         this.description = description;
         this.active = active;
         this.category = category;
+        this.imagePath = imagePath;
+    }
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 
     public Category getCategory() {

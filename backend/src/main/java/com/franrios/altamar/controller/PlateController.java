@@ -4,21 +4,23 @@ import com.franrios.altamar.dto.PlateDto;
 import com.franrios.altamar.entity.Category;
 import com.franrios.altamar.entity.Plate;
 import com.franrios.altamar.service.CategoryService;
+import com.franrios.altamar.service.FileStorageService;
 import com.franrios.altamar.service.MapValidationErrorService;
 import com.franrios.altamar.service.PlateService;
 import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.net.ssl.HttpsURLConnection;
+import javax.print.attribute.standard.Media;
 import javax.validation.Valid;
-import javax.validation.constraints.Digits;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Positive;
-import javax.validation.constraints.PositiveOrZero;
+import javax.validation.constraints.*;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,6 +36,9 @@ public class PlateController {
 
     @Autowired
     MapValidationErrorService mapValidationErrorService;
+
+    @Autowired
+    private FileStorageService fileStorageService;
 
     @GetMapping("/")
     public ResponseEntity<?> GetAllPlates() {
@@ -70,6 +75,36 @@ public class PlateController {
         plate.setActive(true);
         plate.setName(plateDto.getName());
         plate.setDescription(plateDto.getDescription());
+        plateService.Save(plate);
+        return new ResponseEntity<>(plate, HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<?> SavePlateWithImage(@Valid @ModelAttribute PlateDto plateDto, BindingResult bindingResult) {
+        ResponseEntity<?> errorMap = mapValidationErrorService.MapValidationService(bindingResult);
+        if(errorMap != null){
+            return errorMap;
+        }
+
+        String fileName = fileStorageService.storeFile(plateDto.getImage());
+        //save image
+        String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
+                .path("/downloadFile/")
+                .path(fileName)
+                .toUriString();
+
+        //save plate
+        Optional<Category> category = categoryService.findByCategoryId(plateDto.getCategoryIdFk());
+        Plate plate = new Plate();
+        if(!category.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        //TODO add mapper dependency to remove the dto->Entity logic
+        plate.setCategory(category.get());
+        plate.setActive(true);
+        plate.setName(plateDto.getName());
+        plate.setDescription(plateDto.getDescription());
+        plate.setImagePath(fileName);
         plateService.Save(plate);
         return new ResponseEntity<>(plate, HttpStatus.OK);
     }

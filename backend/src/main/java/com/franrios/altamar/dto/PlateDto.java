@@ -1,5 +1,7 @@
 package com.franrios.altamar.dto;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
@@ -13,7 +15,18 @@ public class PlateDto {
     @NotNull
     private Long categoryIdFk;
 
+    @NotNull
+    MultipartFile image;
+
     public PlateDto() {
+    }
+
+    public MultipartFile getImage() {
+        return image;
+    }
+
+    public void setImage(MultipartFile image) {
+        this.image = image;
     }
 
     public PlateDto(String description, String name, Long categoryIdFk) {
