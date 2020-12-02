@@ -1,6 +1,7 @@
 package com.franrios.altamar.controller;
 
 import com.franrios.altamar.dto.PlateDto;
+import com.franrios.altamar.dto.PlateDtoGet;
 import com.franrios.altamar.entity.Category;
 import com.franrios.altamar.entity.Plate;
 import com.franrios.altamar.service.CategoryService;
@@ -8,6 +9,7 @@ import com.franrios.altamar.service.FileStorageService;
 import com.franrios.altamar.service.MapValidationErrorService;
 import com.franrios.altamar.service.PlateService;
 import org.apache.coyote.Response;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -23,6 +25,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.*;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/plates")
@@ -40,10 +43,19 @@ public class PlateController {
     @Autowired
     private FileStorageService fileStorageService;
 
+    @Autowired
+    private ModelMapper modelMapper;
+
     @GetMapping("/")
     public ResponseEntity<?> GetAllPlates() {
         List<Plate> plates = plateService.GetAll();
-        return new ResponseEntity<List<Plate>>(plates, HttpStatus.OK);
+        List<PlateDtoGet> plateDtoGets = plates.stream().map(this::convertToDto).collect(Collectors.toList());
+        return new ResponseEntity<>(plateDtoGets, HttpStatus.OK);
+    }
+
+    private PlateDtoGet convertToDto(Plate plate) {
+        PlateDtoGet plateDtoGet = modelMapper.map(plate, PlateDtoGet.class);
+        return plateDtoGet;
     }
 
     @GetMapping("/{plateId}")

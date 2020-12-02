@@ -13,12 +13,10 @@ const PlateEdition = ({plateSelected, match: {params}}) => {
     const inputFileElement = useRef(null);
     let history = useHistory();
     const [ categories, setCategories ] = useState([]);
-    const [{name, description, category: {categoryId}}, setValues, handleValues] = useForm({
+    const [{name, description, categoryId}, setValues, handleValues] = useForm({
             name: "",
             description: "",
-            category: {
-                categoryId: 1
-            }
+            categoryId: 1
         });
     const [showDeleteButton, setshowDeleteButton] = useState(() => params.platillosId !== 'add');
     const [textButtonSaveUpdate, settextButtonSaveUpdate] = useState(
@@ -105,7 +103,7 @@ const PlateEdition = ({plateSelected, match: {params}}) => {
                     <Input type="text" name="name" value={name} onChange={handleValues} />
 
                     <label htmlFor="name">Categoria</label>
-                    <Select name="category[categoryId]" id="category" value={categoryId} onChange={handleValues} >
+                    <Select name="categoryId" id="category" value={categoryId} onChange={handleValues} >
                         {categories.map(category => <option key={category.categoryId} value={category.categoryId}>{category.name} </option> )}
                     </Select>
 
