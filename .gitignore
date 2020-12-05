@@ -17,3 +17,8 @@ db_data/
 dist/
 
 bundle.js
+
+venv/
+
+postgres-data/
+*.sqlite3

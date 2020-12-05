@@ -25,6 +25,24 @@ services:
       MYSQL_USER: altamar
       MYSQL_PASSWORD: altamarpw
 
+  postgres:
+    image: postgres:13.1-alpine
+    restart: always
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: altamar
+      POSTGRES_PASSWORD: altamar
+      POSTGRES_DB: altamar
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:latest
     restart: always
