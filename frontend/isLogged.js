@@ -15,6 +15,9 @@ const isLogged = async (activeRoute, req) => {
                     "Authorization": `Bearer ${token}`
                 }
             });
+            if(data.status !== 200) { //TODO check if the logged return false we need to set the logged global variable as false
+                return false;
+            }
             return data.data;
         } catch(error) {
             console.log(error);

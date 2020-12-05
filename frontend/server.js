@@ -14,6 +14,7 @@ import pug from 'pug';
 import userRouter from './routes/users';
 import authRouter from './routes/auth';
 import plateRouter from './routes/plateRouter';
+import categoryRouter from './routes/category';
 import routes from "./components/shared/routes";
 
 import App from "./components/shared/App";
@@ -51,6 +52,7 @@ console.log( path.join(__dirname, '../public') );
 app.use('/users', userRouter);
 app.use('/auth', authRouter);
 app.use('/plates', plateRouter);
+app.use('/categories', categoryRouter);
 // app.use('/auth', authRouter);
 
 app.get("*", async (req, res, next) => {
