@@ -14,7 +14,7 @@ class Plate(models.Model):
     description = models.TextField()
     is_active = models.BooleanField(default=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
-
+    photo = models.ImageField(upload_to='plates', default="default.jpg")
 
     def __str__(self):
         return self.name

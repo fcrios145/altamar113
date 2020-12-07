@@ -46,7 +46,9 @@ router.get('/logged', async function(req, res, next) {
     } catch(error) {
         console.log(error);
     }
-    console.log(data);
+    if(data.status !== 200) {
+        return false;
+    }
     res.send(data.data)
 });
 
