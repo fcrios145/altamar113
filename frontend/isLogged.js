@@ -2,7 +2,7 @@ import axios from "axios";
 
 const isLogged = async (activeRoute, req) => {
     if(activeRoute.protectedPage || activeRoute.path === '/login') {
-        const { token } = req.session;
+        const { token, refresh } = req.session;
         console.log(token);
         console.log(req.session);
         console.log('token');
@@ -10,14 +10,16 @@ const isLogged = async (activeRoute, req) => {
             return false;
         }
         try {
-            const data =  await axios.get(`http://localhost:8080/api/auth/logged`, {
+            const bodyData = { "refresh": refresh };
+            const data =  await axios.post(`http://localhost:8000/api/token/refresh/`, bodyData, {
                 headers: {
                     "Authorization": `Bearer ${token}`
                 }
-            });
+            }, );
             if(data.status !== 200) { //TODO check if the logged return false we need to set the logged global variable as false
                 return false;
             }
+            req.session.token = data.data.access;
             return data.data;
         } catch(error) {
             console.log(error);

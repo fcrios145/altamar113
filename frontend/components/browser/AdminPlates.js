@@ -26,7 +26,7 @@ const AdminPlate = ({dispatch}) => {
     const onClickTableElement = ({currentTarget}) => {
         const plateSelected = JSON.parse(currentTarget.getAttribute("data"));
         dispatch({"type": "SET_PLATE_SELECTED", payload: plateSelected})
-        history.push(`/admin/platillos/${plateSelected.plateId}`)
+        history.push(`/admin/platillos/${plateSelected.id}`)
     }
 
     const onClickAdd = (e) => {
@@ -44,7 +44,7 @@ const AdminPlate = ({dispatch}) => {
                     </thead>
                     <tbody>
                     {plates.map(plate =>
-                        <tr key={plate.plateId} data={JSON.stringify(plate)} onClick={onClickTableElement}>
+                        <tr key={plate.id} data={JSON.stringify(plate)} onClick={onClickTableElement}>
                             <td>{plate.name}</td>
                             {/*<td>{plate.description}</td>*/}
                         </tr> )}

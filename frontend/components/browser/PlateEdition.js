@@ -13,10 +13,10 @@ const PlateEdition = ({plateSelected, match: {params}}) => {
     const inputFileElement = useRef(null);
     let history = useHistory();
     const [ categories, setCategories ] = useState([]);
-    const [{name, description, categoryId}, setValues, handleValues] = useForm({
+    const [{name, description, category}, setValues, handleValues] = useForm({
             name: "",
             description: "",
-            categoryId: 1
+            category: 1
         });
     const [showDeleteButton, setshowDeleteButton] = useState(() => params.platillosId !== 'add');
     const [textButtonSaveUpdate, settextButtonSaveUpdate] = useState(
@@ -30,7 +30,7 @@ const PlateEdition = ({plateSelected, match: {params}}) => {
         console.log(params);
         // plateSelectedClone.categoryId = 1;
         if(params.platillosId === "add") { //Save
-            axios.post(`/plates/`, {name, description, categoryId})
+            axios.post(`/plates/`, {name, description, category})
         } else {
             axios.put(`/plates/${params.platillosId}`, {name, description, categoryId: 1})
         }
@@ -106,8 +106,8 @@ const PlateEdition = ({plateSelected, match: {params}}) => {
                     <TextArea type="text" name="description" value={description} onChange={handleValues}/>
 
                     <label htmlFor="name">Categoria</label>
-                    <Select name="categoryId" id="category" value={categoryId} onChange={handleValues} >
-                        {categories.map(category => <option key={category.categoryId} value={category.categoryId}>{category.name} </option> )}
+                    <Select name="categoryId" id="category" value={category} onChange={handleValues} >
+                        {categories.map(category => <option key={category.category} value={category.category}>{category.name} </option> )}
                     </Select>
 
                     <label htmlFor="description">Descripcion</label>

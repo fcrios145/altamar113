@@ -12,7 +12,7 @@ router.get('/', async function(req, res, next) {
 
     try {
         // const postForm = req.body;
-        data =  await axios.get(`http://localhost:8080/api/plates/`, {
+        data =  await axios.get(`http://localhost:8000/api/plates/`, {
             headers: {
                 "Authorization": `Bearer ${token}`
             }
@@ -34,7 +34,7 @@ router.get('/:plateId', async function(req, res, next) {
     //TODO try parse the req param, to int only, to avoid errors
     try {
         // const postForm = req.body;
-        data =  await axios.get(`http://localhost:8080/api/plates/${req.params.plateId}`, {
+        data =  await axios.get(`http://localhost:8000/api/plates/${req.params.plateId}`, {
             headers: {
                 "Authorization": `Bearer ${token}`
             }
@@ -57,7 +57,7 @@ router.post('/', async function(req, res, next) {
     console.log("-----------------")
     try {
         // const postForm = req.body;
-        data =  await axios.post(`http://localhost:8080/api/plates/`, req.body, {
+        data =  await axios.post(`http://localhost:8000/api/plates/`, req.body, {
             headers: {
                 "Authorization": `Bearer ${token}`
             }
@@ -81,7 +81,7 @@ router.put('/:plateId', async function(req, res, next) {
     console.log("-----------------")
     try {
         // const postForm = req.body;
-        data =  await axios.put(`http://localhost:8080/api/plates/${req.params.plateId}`, req.body, {
+        data =  await axios.put(`http://localhost:8000/api/plates/${req.params.plateId}`, req.body, {
             headers: {
                 "Authorization": `Bearer ${token}`
             }
@@ -105,7 +105,7 @@ router.delete('/:plateId', async function(req, res, next) {
     console.log("-----------------")
     try {
         // const postForm = req.body;
-        data =  await axios.delete(`http://localhost:8080/api/plates/${req.params.plateId}`, {
+        data =  await axios.delete(`http://localhost:8000/api/plates/${req.params.plateId}`, {
             headers: {
                 "Authorization": `Bearer ${token}`
             }

@@ -10,13 +10,14 @@ router.post('/login', async function(req, res, next) {
         // const postForm = req.body;
         const {username, password} = req.body
         console.log(username, password);
-        data = await axios.post(`http://localhost:8080/api/auth/login`, {
-            "userName": username,
+        data = await axios.post(`http://localhost:8000/api/token/`, {
+            "username": username,
             "password": password
         });
         //SET Session value
         const sess = req.session;
-        sess.token = data.data.token;
+        sess.token = data.data.access;
+        sess.refresh = data.data.refresh;
         sess.username = data.data.username
     } catch(error) {
         console.log(error);

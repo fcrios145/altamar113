@@ -8,7 +8,7 @@ import Layoutadmin from './LayoutAdmin';
     I'm having the same logic in different files
 */
 
-const Login2 = ({logged, dispatch}) => {
+const Login = ({logged, dispatch}) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const onSubmit = (e, dispatch) => {
@@ -57,6 +57,6 @@ const mapStateToProps = (state /*, ownProps*/) => {
 export default connect(
     mapStateToProps,
     null
-)(Login2)
+)(Login)
 
 // export default Login2;
