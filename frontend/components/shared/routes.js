@@ -1,9 +1,8 @@
-import React from 'react';
 import Home from "../browser/Home";
 import Admin from "../browser/Admin";
 import AdminPlates from "../browser/AdminPlates";
 import PlateEdition from "../browser/PlateEdition";
-import Login2 from '../browser/Login2'
+import Login from '../browser/Login'
 import Plate from "../browser/Plate";
 import Dashboard from "../browser/Dashboard";
 
@@ -22,7 +21,7 @@ const routes =  [
     {
         path: '/login',
         protectedPage: false,
-        component: Login2,
+        component: Login,
     },
     {
         path: '/admin',
