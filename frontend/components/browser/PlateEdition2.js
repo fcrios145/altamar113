@@ -11,6 +11,7 @@ import {
 
 const PlateEdition2 = ({plateSelected, match: {params}}) => {
     const inputFileElement = useRef(null);
+    const [values, setValues, handleValues] = useForm({});
     let history = useHistory();
 
     const handleClickFile = event => {
@@ -34,14 +35,15 @@ const PlateEdition2 = ({plateSelected, match: {params}}) => {
                 <Form >
 
                     <label htmlFor="name">Nombre</label>
-                    <Input type="text" name="name"  />
+                    <Input type="text" name="name" value={values.name} onChange={handleValues} />
 
                     <label htmlFor="description">Descripcion</label>
-                    <TextArea type="text" name="description" />
+                    <TextArea type="text" name="description" value={values.description} onChange={handleValues} />
 
                     <label htmlFor="name">Categoria</label>
-                    <Select name="categoryId" id="category" >
-                        <option>value</option>
+                    <Select name="category" defaultValue={""} value={values.category} onChange={handleValues} >
+                        <option value="" ></option>
+                        <option value="1">uno</option>
                     </Select>
 
                     <label htmlFor="description">Descripcion</label>
@@ -49,7 +51,7 @@ const PlateEdition2 = ({plateSelected, match: {params}}) => {
                     
                     <label htmlFor="image">Imagen</label>
                     <InputFileButton onClick={handleClickFile} type="button">Subir Imagen</InputFileButton>
-                    <input onChange={handleChangeFile} style={{display: 'none'}} ref={inputFileElement} type="file"/>
+                    <input onChange={handleChangeFile} name="photo" style={{display: 'none'}} ref={inputFileElement} type="file"/>
 
                 </Form>
             </Wrapper>
