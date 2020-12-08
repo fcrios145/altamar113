@@ -6,7 +6,7 @@ import LayoutAdmin from "./LayoutAdmin";
 import {FloatingButton} from "../styled/StyledComponents";
 
 
-const AdminPlate = ({dispatch}) => {
+const PlateList = ({dispatch}) => {
     let history = useHistory();
     const getPlates = () => {
         return axios.get(`/plates`); //=> {
@@ -65,4 +65,4 @@ const mapStateToProps = (state) => {
 export default connect(
   mapStateToProps,
   null
-)(AdminPlate);
+)(PlateList);

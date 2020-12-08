@@ -1,6 +1,6 @@
 import Home from "../browser/Home";
 import Admin from "../browser/Admin";
-import AdminPlates from "../browser/AdminPlates";
+import PlateList from "../browser/PlateList";
 import PlateEdition from "../browser/PlateEdition";
 import Login from '../browser/Login'
 import Plate from "../browser/Plate";
@@ -39,7 +39,7 @@ const routes =  [
         path: '/admin/platillos',
         protectedPage: true,
         exact: true,
-        component: AdminPlates
+        component: PlateList
     },
     {
         path: '/admin/platillos/:platillosId?',
