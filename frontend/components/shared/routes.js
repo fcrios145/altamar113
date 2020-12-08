@@ -1,7 +1,7 @@
 import Home from "../browser/Home";
 import Admin from "../browser/Admin";
 import PlateList from "../browser/PlateList";
-import PlateEdition from "../browser/PlateEdition";
+import PlateEdition2 from "../browser/PlateEdition2";
 import Login from '../browser/Login'
 import Plate from "../browser/Plate";
 import Dashboard from "../browser/Dashboard";
@@ -45,7 +45,7 @@ const routes =  [
         path: '/admin/platillos/:platillosId?',
         protectedPage: true,
         exact: true,
-        component: PlateEdition
+        component: PlateEdition2
     }
     // {
     //     path: '/popular/:id',
