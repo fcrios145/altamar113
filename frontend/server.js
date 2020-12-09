@@ -26,7 +26,6 @@ import { Provider } from 'react-redux';
 import { storeReducer, initialState } from './components/shared/store'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import isLogged from "./isLogged";
-
 // console.log(store.getState());
 // console.log('store');
 

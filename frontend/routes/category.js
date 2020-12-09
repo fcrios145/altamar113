@@ -12,7 +12,7 @@ router.get('/', async function(req, res, next) {
 
     try {
         // const postForm = req.body;
-        data =  await axios.get(`http://localhost:8080/api/categories/`, {
+        data =  await axios.get(`http://localhost:8000/api/categories/`, {
             headers: {
                 "Authorization": `Bearer ${token}`
             }

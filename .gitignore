@@ -23,4 +23,5 @@ venv/
 postgres-data/
 *.sqlite3
 media/
+uploads/
 __pycache__

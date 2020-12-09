@@ -11,8 +11,18 @@ import {
 
 const PlateEdition2 = ({plateSelected, match: {params}}) => {
     const inputFileElement = useRef(null);
-    const [values, setValues, handleValues] = useForm({});
+
+    const [ categories, setCategories ] = useState([]);
+    const [ photo, setPhoto ] = useState();
+    const [values, setValues, handleValues] = useForm({name: ""});
     let history = useHistory();
+
+    const [textButtonSaveUpdate, settextButtonSaveUpdate] = useState(
+        () =>
+        params.platillosId !== 'add' ? "Actualizar" : "Guardar"
+    )
+
+    const [showDeleteButton, setshowDeleteButton] = useState(() => params.platillosId !== 'add');
 
     const handleClickFile = event => {
         inputFileElement.current.click();       
@@ -20,16 +30,60 @@ const PlateEdition2 = ({plateSelected, match: {params}}) => {
 
     const handleChangeFile = event => {
         const fileUploaded = event.target.files[0];
+        setPhoto(fileUploaded)
         console.log(fileUploaded);
     }
+
+    const onClickGoBack = () => {
+        history.push(`/admin/platillos/`);
+    }
+
+    const deleteButtonClick = (e) => {
+        if (confirm(`Estas seguro que deseas eliminar ${name}`)) {
+            axios.delete(`/plates/${params.platillosId}`).then(response => {
+                history.push(`/admin/platillos/`)
+            })
+        }
+    }
+
+
+    const onSubmitForm = (e) => {
+        e.preventDefault();
+        const { name, description, category } = values;
+        const formData = new FormData();
+        formData.append('name', name);
+        formData.append('description', description);
+        formData.append('category', category);
+        formData.append('photo', photo);
+        const config = {
+                headers: {
+                    'content-type': 'multipart/form-data'
+                }
+            }
+        if(params.platillosId === "add") { //Save
+            axios.post(`/plates/`, formData, config)
+        } else {
+            axios.put(`/plates/${params.platillosId}`, {name, description, category })
+        }
+    }
+
+    useEffect(() => {
+        axios.get(`/categories/`).then(data => setCategories(data.data))
+        if(params.platillosId !== 'add') {
+            axios.get(`/plates/${params.platillosId}`).then(data => setValues(({...data.data})))
+        }
+
+    }, []);
 
     return(
         <Layoutadmin>
             <Wrapper>
                 <ButtonsContainer>
-                    <ButtonGreen  type="button">Actualizar</ButtonGreen>
-                    <ButtonRed >Eliminar</ButtonRed>
-                    <ButtonBlue >Regresar</ButtonBlue>
+                    <ButtonGreen type="button" onClick={onSubmitForm}>{textButtonSaveUpdate}</ButtonGreen>
+                    {
+                        showDeleteButton && <ButtonRed onClick={deleteButtonClick} >Eliminar</ButtonRed>
+                    }
+                    <ButtonBlue onClick={onClickGoBack}>Regresar</ButtonBlue>
                     <ButtonOrange>Inactivo</ButtonOrange>
                 </ButtonsContainer>
                 <Form >
@@ -41,13 +95,10 @@ const PlateEdition2 = ({plateSelected, match: {params}}) => {
                     <TextArea type="text" name="description" value={values.description} onChange={handleValues} />
 
                     <label htmlFor="name">Categoria</label>
-                    <Select name="category" defaultValue={""} value={values.category} onChange={handleValues} >
-                        <option value="" ></option>
-                        <option value="1">uno</option>
+                    <Select name="category" value={values.category} onChange={handleValues} >
+                        <option value=""></option>
+                        {categories.map(category => <option key={category.id} value={category.id}>{category.name} </option> )}
                     </Select>
-
-                    <label htmlFor="description">Descripcion</label>
-                    <TextArea type="text" name="description" />
                     
                     <label htmlFor="image">Imagen</label>
                     <InputFileButton onClick={handleClickFile} type="button">Subir Imagen</InputFileButton>
