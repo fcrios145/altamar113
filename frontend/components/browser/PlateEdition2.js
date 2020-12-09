@@ -61,9 +61,14 @@ const PlateEdition2 = ({plateSelected, match: {params}}) => {
                 }
             }
         if(params.platillosId === "add") { //Save
-            axios.post(`/plates/`, formData, config)
+            axios.post(`/plates/`, formData, config).then(res => {
+                if(res.status === 200) {
+                    alert("guardado")
+                    onClickGoBack();
+                }
+            })
         } else {
-            axios.put(`/plates/${params.platillosId}`, {name, description, category })
+            axios.put(`/plates/${params.platillosId}`, formData, config)
         }
     }
 
@@ -102,7 +107,7 @@ const PlateEdition2 = ({plateSelected, match: {params}}) => {
                     
                     <label htmlFor="image">Imagen</label>
                     <InputFileButton onClick={handleClickFile} type="button">Subir Imagen</InputFileButton>
-                    <input onChange={handleChangeFile} name="photo" style={{display: 'none'}} ref={inputFileElement} type="file"/>
+                    <input onChange={handleChangeFile} name="photo" style={{display: 'none'}} ref={inputFileElement} type="file" accept="image/x-png,image/gif,image/jpeg" />
 
                 </Form>
             </Wrapper>

@@ -4,6 +4,7 @@ const router = express.Router();
 import multer from 'multer'
 import FormData from 'form-data'
 import fs from 'fs';
+import request from 'request'
 
 
 const storage = multer.diskStorage({
@@ -68,53 +69,90 @@ router.get('/:plateId', async function(req, res, next) {
 });
 
 /* POST save plate */
-router.post('/', upload.single('photo'), async function(req, res, next) {
+router.post('/', upload.single('photo'), function(req, res, next) {
     let data = {};
     const { token } = req.session;
     if(token === 'undefined') {
         return [];
     }
-    console.log("-----------------")
+    /*console.log("-----------------")
     console.log(req.file)
-    console.log("-----------------")
+    console.log("-----------------")*/
     const formData = new FormData();
     const { name, description, category } = req.body;
+    const file = fs.createReadStream(req.file.path)
     formData.append('name', name);
     formData.append('description', description);
     formData.append('category', category);
+    formData.append('photo', file);
 
-    console.log(formData)
-    try {
-        // const postForm = req.body;
-        data =  await axios.post(`http://localhost:8000/api/plates/`, req.body, {
-            headers: {
-                "Authorization": `Bearer ${token}`,
-                'content-type': 'multipart/form-data'
-            }
-        });
-    } catch(error) {
-        console.log(error);
-    }
-    // console.log(data);
-    res.send(data.data)
+    var options = {
+      'method': 'POST',
+      'url': 'http://localhost:8000/api/plates/',
+      'headers': {
+            "Authorization": `Bearer ${token}`
+      },
+      formData: {
+        'name': name,
+        'photo': {
+          'value': fs.createReadStream(req.file.path),
+          'options': {
+            'filename': req.file.path,
+            'contentType': null
+          }
+        },
+        'category': category,
+        'description': description
+      }
+    };
+
+      request(options, function (error, response) {
+          res.send(JSON.parse(response.body), response.statusCode)
+      });
 });
 
 /* PUT update plate */
-router.put('/:plateId', async function(req, res, next) {
+router.put('/:plateId', upload.single('photo'), async function(req, res, next) {
     let data = {};
     const { token } = req.session;
     if(token === 'undefined') {
         return [];
     }
-    console.log("-----------------")
-    console.log(req.body)
-    console.log("-----------------")
+    /*console.log("-----------------")
+    console.log(req.file)
+    console.log("-----------------")*/
+    const formData = new FormData();
+    const { name, description, category } = req.body;
+    const file = fs.createReadStream(req.file.path)
+    formData.append('name', name);
+    formData.append('description', description);
+    formData.append('category', category);
+    formData.append('photo', file);
+
+    var options = {
+      'method': 'PUT',
+      'url': `http://localhost:8000/api/plates/${req.params.plateId}/`,
+      'headers': {
+            "Authorization": `Bearer ${token}`
+      },
+      formData: {
+        'name': name,
+        'photo': {
+          'value': fs.createReadStream(req.file.path),
+          'options': {
+            'filename': req.file.path,
+            'contentType': null
+          }
+        },
+        'category': category,
+        'description': description
+      }
+    };
+
     try {
-        // const postForm = req.body;
-        data =  await axios.put(`http://localhost:8000/api/plates/${req.params.plateId}/`, req.body, {
-            headers: {
-                "Authorization": `Bearer ${token}`
-            }
+        request(options, function (error, response) {
+          if (error) throw new Error(error);
+            res.send(data.data)
         });
     } catch(error) {
         console.log(error);
@@ -135,7 +173,7 @@ router.delete('/:plateId', async function(req, res, next) {
     console.log("-----------------")
     try {
         // const postForm = req.body;
-        data =  await axios.delete(`http://localhost:8000/api/plates/${req.params.plateId}`, {
+        data =  await axios.delete(`http://localhost:8000/api/plates/${req.params.plateId}/`, {
             headers: {
                 "Authorization": `Bearer ${token}`
             }
