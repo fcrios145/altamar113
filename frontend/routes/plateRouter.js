@@ -5,6 +5,7 @@ import multer from 'multer'
 import FormData from 'form-data'
 import fs from 'fs';
 import request from 'request'
+import refreshToken from '../refreshToken';
 
 
 const storage = multer.diskStorage({
@@ -28,8 +29,9 @@ router.post('/profile', upload.single('avatar'), function (req, res, next) {
 /* GET plates listing. */
 router.get('/', async function(req, res, next) {
     let data = {};
+    const responseRefresh = refreshToken(req.session);
     const { token } = req.session;
-    if(token === 'undefined') {
+    if(token === 'undefined' || !responseRefresh) {
         return [];
     }
 
