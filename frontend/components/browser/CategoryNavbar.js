@@ -4,16 +4,16 @@ import {connect} from "react-redux";
 
 class CategoryNavbar extends React.Component {
     render() {
-        const { categories } = this.props;
+        const { categories, categoriesServer } = this.props;
         return (
             <nav className='subnav mobile-only'>
                 <ul>
                     {
-                        categories && categories.map(item => (
-                            <li key={item.name}>
+                        categoriesServer && categoriesServer.map(item => (
+                            <li key={item.id}>
                                 <NavLink
-                                    to={`/menu/${item.name}/`}>
-                                    {item.text}
+                                    to={`/menu/${item.url}/`}>
+                                    {item.name}
                                 </NavLink>
                             </li>
                         ))
@@ -27,7 +27,8 @@ class CategoryNavbar extends React.Component {
 
 const mapStateToProps = (state /*, ownProps*/) => {
     return {
-        categories: state.categories
+        categories: state.categories,
+        categoriesServer: state.categoriesServer
     }
 }
 

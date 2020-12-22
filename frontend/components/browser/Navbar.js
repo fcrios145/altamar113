@@ -71,6 +71,7 @@ class Navbar extends React.Component {
                             <li style={liStyles} >
                                 Menú
                                 <ul>
+                                    {this.props.categoriesServer.map(category => <li key={category.id}>{category.name}</li>)}
                                     <li style={liSubMenu}>
                                         Ceviches
                                         <ul style={liPlateStyle}>
@@ -104,7 +105,7 @@ class Navbar extends React.Component {
                         </NavLink>
                     </li>
                     <li>
-                        <NavLink exact to={`/menu/ceviches/tony-espacial`}>
+                        <NavLink exact to={`/menu/`}>
                             Menú
                         </NavLink>
                     </li>
@@ -120,7 +121,8 @@ class Navbar extends React.Component {
 
 const mapStateToProps = (state /*, ownProps*/) => {
     return {
-        imageInHeader: state.imageInHeader
+        imageInHeader: state.imageInHeader,
+        categoriesServer: state.categoriesServer
     }
 }
 

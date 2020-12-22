@@ -4,16 +4,16 @@ import {connect} from "react-redux";
 
 class PlateNavbar extends React.Component {
     render() {
-        const { category } = this.props;
-        const plates = this.props.categories.find(item => item.name === category) || {};
+        const category = this.props.categoriesServer.find(category => category.url === this.props.category) || {}
+        const plates = this.props.platesServer.filter(plate => plate.category === category.id);
         return (
             <nav className='subnav-sub mobile-only'>
                 <ul>
                     {
-                        ((plates && category )) && plates.plates.map(item => (
+                        ((plates && category )) && plates.map(item => (
                             <li key={item.name}>
                                 <NavLink
-                                    to={`/menu/${category}/${item.url}/`}>
+                                    to={`/menu/${category.url}/${item.url}/`}>
                                     {item.name}
                                 </NavLink>
                             </li>
@@ -28,7 +28,9 @@ class PlateNavbar extends React.Component {
 
 const mapStateToProps = (state /*, ownProps*/) => {
     return {
-        categories: state.categories
+        categories: state.categories,
+        categoriesServer: state.categoriesServer,
+        platesServer: state.platesServer
     }
 }
 

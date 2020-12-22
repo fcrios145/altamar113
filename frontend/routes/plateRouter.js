@@ -6,7 +6,7 @@ import FormData from 'form-data'
 import fs from 'fs';
 import request from 'request'
 import refreshToken from '../refreshToken';
-
+import { ADDRESS } from '../config'
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -37,7 +37,7 @@ router.get('/', async function(req, res, next) {
 
     try {
         // const postForm = req.body;
-        data =  await axios.get(`http://localhost:8000/api/plates/`, {
+        data =  await axios.get(`${ADDRESS}/api/plates/`, {
             headers: {
                 "Authorization": `Bearer ${token}`
             }
@@ -59,7 +59,7 @@ router.get('/:plateId', async function(req, res, next) {
     //TODO try parse the req param, to int only, to avoid errors
     try {
         // const postForm = req.body;
-        data =  await axios.get(`http://localhost:8000/api/plates/${req.params.plateId}`, {
+        data =  await axios.get(`${ADDRESS}/api/plates/${req.params.plateId}`, {
             headers: {
                 "Authorization": `Bearer ${token}`
             }
@@ -123,13 +123,22 @@ router.put('/:plateId', upload.single('photo'), async function(req, res, next) {
     /*console.log("-----------------")
     console.log(req.file)
     console.log("-----------------")*/
-    const formData = new FormData();
     const { name, description, category } = req.body;
-    const file = fs.createReadStream(req.file.path)
-    formData.append('name', name);
-    formData.append('description', description);
-    formData.append('category', category);
-    formData.append('photo', file);
+    let formData = {
+        'name': name,
+        'category': category,
+        'description': description
+      }
+      if(req.file !== undefined) {
+        const file = fs.createReadStream(req.file.path)
+        formData.photo = {
+            'value': fs.createReadStream(req.file.path),
+            'options': {
+              'filename': req.file.path,
+              'contentType': null
+            }
+        }
+      }
 
     var options = {
       'method': 'PUT',
@@ -137,18 +146,7 @@ router.put('/:plateId', upload.single('photo'), async function(req, res, next) {
       'headers': {
             "Authorization": `Bearer ${token}`
       },
-      formData: {
-        'name': name,
-        'photo': {
-          'value': fs.createReadStream(req.file.path),
-          'options': {
-            'filename': req.file.path,
-            'contentType': null
-          }
-        },
-        'category': category,
-        'description': description
-      }
+      formData: formData
     };
 
     try {
@@ -175,7 +173,7 @@ router.delete('/:plateId', async function(req, res, next) {
     console.log("-----------------")
     try {
         // const postForm = req.body;
-        data =  await axios.delete(`http://localhost:8000/api/plates/${req.params.plateId}/`, {
+        data =  await axios.delete(`${ADDRESS}/api/plates/${req.params.plateId}/`, {
             headers: {
                 "Authorization": `Bearer ${token}`
             }

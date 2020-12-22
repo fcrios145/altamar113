@@ -22,9 +22,6 @@ class Home extends React.Component {
     render() {
         return (
             <Layout {...this.props}>
-                <Title>
-                    Hola Mundo
-                </Title>
                 {/* <h1>Counter: {this.props.counter}</h1>
                 <button onClick={() => this.props.dispatch({ "type": "INCREMENT" })}>Sum</button> */}
                 <div className="container rows" style={{margin: '1.5em 0'}}>
@@ -33,7 +30,7 @@ class Home extends React.Component {
                     </div>
                     <div className='row mobile-only'>
                         <div className="center-container">
-                            <NavLink to={`/menu/ceviches/tony-espacial`}>
+                            <NavLink to={`/menu/`}>
                                 <button className='button'>
                                     Ir al Menú
                                 </button>

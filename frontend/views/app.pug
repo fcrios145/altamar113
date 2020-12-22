@@ -9,6 +9,7 @@ html
         script(src='/static/javascripts/bundle.js' defer)
         //TODO Investigate the correct way to output json data into a js variable
         script(type='text/javascript').
+            window.__INITIAL_DATA_STORE2__ = JSON.stringify(!{initialStateStore})
             window.__INITIAL_DATA__ = #{initialData}
             window.__INITIAL_DATA_STORE__ = !{initialStateStore}
         | !{styles}

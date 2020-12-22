@@ -13,20 +13,26 @@ import { useForm as useFormHook } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup"
 
-const schema = yup.object().shape({
-    name: yup.string().required(),
-    category: yup.string().required(),
-    description: yup.string().required(),
-  photo: yup.mixed().test("required", "Please upload a file", (value) => {
-          if (!value.length) return false // attachment is optional
-            return true
-        }),
-    //name: yup.number().positive().integer().required()
-});
 
 
 
 const PlateEdition2 = ({plateSelected, match: {params}}) => {
+
+    const schema = yup.object().shape({
+        name: yup.string().required(),
+        category: yup.string().required(),
+        description: yup.string().required(),
+        photo: yup.mixed().test("required", "Please upload a file", (value) => {
+            if(params.platillosId !== 'add') {
+                return true; //attachment is not required when the view
+            }
+            if (!value.length) {
+                return false // attachment is required
+            }
+            return true
+        }),
+        //name: yup.number().positive().integer().required()
+    });
 
     const { register, handleSubmit, errors, setValue } = useFormHook({
         resolver: yupResolver(schema)
@@ -38,7 +44,9 @@ const PlateEdition2 = ({plateSelected, match: {params}}) => {
         formData.append('name', name);
         formData.append('description', description);
         formData.append('category', category);
-        formData.append('photo', data.photo[0]);
+        if(data.photo !== undefined) {
+            formData.append('photo', data.photo[0]);
+        }
         const config = {
                 headers: {
                     'content-type': 'multipart/form-data'
@@ -46,13 +54,18 @@ const PlateEdition2 = ({plateSelected, match: {params}}) => {
             }
         if(params.platillosId === "add") { //Save
             axios.post(`/plates/`, formData, config).then(res => {
-                if(res.status === 200) {
+                if(res.status === 201) {
                     alert("guardado")
                     onClickGoBack();
                 }
             })
         } else {
-            axios.put(`/plates/${params.platillosId}`, formData, config)
+            axios.put(`/plates/${params.platillosId}`, formData, config).then(res => {
+                if(res.status === 200) {
+                    alert("guardado")
+                    onClickGoBack();
+                }
+            }).catch(error => alert('Hubo un error al intentar guardar'))
         }
 
     };
@@ -62,6 +75,7 @@ const PlateEdition2 = ({plateSelected, match: {params}}) => {
 
 
     const [ categories, setCategories ] = useState([]);
+    const [ imageSource, setImageSource ] = useState([]);
     const [ photo, setPhoto ] = useState();
     const [values, setValues, handleValues] = useForm({name: ""});
     let history = useHistory();
@@ -78,9 +92,7 @@ const PlateEdition2 = ({plateSelected, match: {params}}) => {
     }
 
     const handleChangeFile = event => {
-        const fileUploaded = event.target.files[0];
-        setPhoto(fileUploaded)
-        console.log(fileUploaded);
+        console.log('hola');
     }
 
     const onClickGoBack = () => {
@@ -99,32 +111,6 @@ const PlateEdition2 = ({plateSelected, match: {params}}) => {
         }
     }
 
-
-    const onSubmitForm = (e) => {
-        e.preventDefault();
-        const { name, description, category } = values;
-        const formData = new FormData();
-        formData.append('name', name);
-        formData.append('description', description);
-        formData.append('category', category);
-        formData.append('photo', photo);
-        const config = {
-                headers: {
-                    'content-type': 'multipart/form-data'
-                }
-            }
-        if(params.platillosId === "add") { //Save
-            axios.post(`/plates/`, formData, config).then(res => {
-                if(res.status === 200) {
-                    alert("guardado")
-                    onClickGoBack();
-                }
-            })
-        } else {
-            axios.put(`/plates/${params.platillosId}`, formData, config)
-        }
-    }
-
     useEffect(() => {
         axios.get(`/categories/`).then(data => setCategories(data.data))
         if(params.platillosId !== 'add') {
@@ -132,6 +118,7 @@ const PlateEdition2 = ({plateSelected, match: {params}}) => {
                 setValue("name", data.data.name);
                 setValue("description", data.data.description);
                 setValue("category", data.data.category);
+                setImageSource(data.data.photo)
                 //TODO set photo value
             })
         }
@@ -171,10 +158,11 @@ const PlateEdition2 = ({plateSelected, match: {params}}) => {
                     <input ref={(ref) => {
                         inputFileElement = ref;
                         register(ref)
-                    }}  name="photo" style={{display: 'none'}} type="file" accept="image/x-png,image/gif,image/jpeg" />
+                    }}  name="photo" style={{display: 'none'}} onChange={handleChangeFile} type="file" accept="image/x-png,image/gif,image/jpeg" />
                     <p>{errors.photo?.message}</p>
                     <button style={{display: 'none'}} ref={buttonSaveElement} type="submit">Enviar</button>
                 </Form>
+                <img src={imageSource}/>
             </Wrapper>
             
 

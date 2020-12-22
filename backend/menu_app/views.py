@@ -2,7 +2,7 @@ from django.shortcuts import render
 from menu_app.serializers import PlateSerializer, CategorySerializer
 from rest_framework import viewsets
 from menu_app.models import Plate, Category
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
 
 
 
@@ -13,7 +13,7 @@ class PlateViewSet(viewsets.ModelViewSet):
     """
     queryset = Plate.objects.all()
     serializer_class = PlateSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
 
 class CategoryViewSet(viewsets.ModelViewSet):
@@ -22,5 +22,5 @@ class CategoryViewSet(viewsets.ModelViewSet):
     """
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticatedOrReadOnly]
 

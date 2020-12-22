@@ -1,6 +1,8 @@
 import React from 'react';
 import Layout from "./Layout";
 import {connect} from "react-redux";
+import {NavLink} from 'react-router-dom'
+import { Helmet } from 'react-helmet'
 
 const liMenuStyle = {
     color: '#053861',
@@ -13,38 +15,58 @@ const spanTitle = {
     color: '#2196F3'
 }
 
+function createMarkup(markup) {
+      return {__html: unescape(markup)};
+}
+
 class Plate extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {plate: {}, category: {}}
+    }
 
     componentDidMount() {
         this.props.dispatch({ "type": "IMAGE_IN_HEADER", payload: true });
         this.props.dispatch({ "type": "SHOW_CATEGORY_NAVBAR", payload: true });
         this.props.dispatch({ "type": "SHOW_PLATE_NAVBAR", payload: true });
-
     }
+    
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         const { categoria, platillo } = this.props.match.params;
-        document.title = `${categoria}`;
+        if(platillo) {
+            const plate = this.props.platesServer.find(plate => plate.url === platillo)
+            const category = this.props.categoriesServer.find(category => category.url === categoria)
+            document.title = `${category.name} - ${plate.name}`;
+        } else if(!categoria) {
+            document.title = 'menu';
+        } else {
+            document.title = `${categoria}`;
+        }
     }
 
-    searchPlate(category = "") {
-        return this.props.categories.find(item => item.name === category) || {};
-    }
 
     render() {
         const { categoria, platillo } = this.props.match.params;
-        const categoryObject = this.searchPlate(categoria);
-        const plate = categoryObject.plates.find(item => item.url === platillo) || {};
-        console.log(plate);
+        const { categoriesServer, platesServer } = this.props;
+        const plate = platesServer.find(plate => plate.url === platillo)
+        console.log("aksdjkasdjkasjdkasjdkasjkd----------------------------------------------------")
+        console.log(plate)
         return (
             <Layout {...this.props}>
+                {plate && (
+                    <Helmet>
+                        <meta name="description" content={plate.description} />
+                    </Helmet>
+                )}
                 <div className="plate mobile-only">
                     {plate &&
                     <React.Fragment>
-                        <img style={{width: '100%', height: 'auto'}} className='plate-image' src="/static/images/ceviche.png" alt="ceviche" />
+                        <img style={{width: '100%', height: 'auto'}} className='plate-image' src={plate.photo} alt="ceviche" />
                         <div className="text-in-image">
                             <h1 className='plate-title'>{plate.name}</h1>
-                            <p className='plate-description'>Camarón crudo acompañado con pepino tomate y cebolla moradaen cuadro, chile serrano y cilantro finamente picado coronado con aguacate</p>
+                            <p className='plate-description' dangerouslySetInnerHTML={unescape(createMarkup(plate.description_html))}></p>
                         </div>
 
                         <a href="/" className='icon icon--left-arrow'>
@@ -61,33 +83,27 @@ class Plate extends React.Component {
                 <div className="not-mobile">
                     <div className="rows">
                         <div className="row" style={{display: 'flex', justifyContent: 'space-between', marginRight: '5em'}}>
-                            <div>
-                                <span style={spanTitle}>Aguachile</span>
-                                <ul style={{marginTop: '1.5em'}}>
-                                    <li style={liMenuStyle}>Mar verde</li>
-                                    <li style={liMenuStyle}>Mar Rojo</li>
-                                    <li style={liMenuStyle}>Mar Morado</li>
-                                </ul>
-                            </div>
-                            <div>
-                                <span style={spanTitle}>Aguachile</span>
-                                <ul style={{marginTop: '1.5em'}}>
-                                    <li style={liMenuStyle}>Mar verde</li>
-                                    <li style={liMenuStyle}>Mar Rojo</li>
-                                    <li style={liMenuStyle}>Mar Morado</li>
-                                    <li style={liMenuStyle}>Mar Morado</li>
-                                </ul>
-                            </div>
-                            <div>
-                                <span style={spanTitle}>Aguachile</span>
-                                <ul style={{marginTop: '1.5em'}}>
-                                    <li style={liMenuStyle}>Mar verde</li>
-                                    <li style={liMenuStyle}>Mar Rojo</li>
-                                    <li style={liMenuStyle}>Mar Morado</li>
-                                    <li style={liMenuStyle}>Mar Morado</li>
-                                </ul>
-                            </div>
+                            {categoriesServer.map(category => (
+                                <div key={category.id}>
+                                    <span style={spanTitle}>{category.name}</span>
+                                    <ul style={{marginTop: '1.5em'}}>
+                                        {
+                                            platesServer && platesServer
+                                            .filter(plate => plate.category === category.id)
+                                                .map(plate => (
+                                                    <li key={plate.id}>
+                                                        <NavLink style={{textDecoration: 'none'}}
+                                                            to={`/menu/${category.url}/${plate.url}/`}>
+                                                            {plate.name}
+                                                        </NavLink>
+                                                    </li>
+                                                ))
+                                        }
+                                    </ul>
+                                </div>
+                            ))}
                         </div>
+                        {plate && 
                         <div className="row" style={{display: 'flex', justifyContent: 'center'}}>
                             <div style={{display: 'flex', flexDirection: 'column'}}>
                                 <h1 style={{
@@ -101,8 +117,7 @@ class Plate extends React.Component {
                                     textAlign: 'center',
                                     color: '#053861',
                                     margin: '1.5em 0'
-                                }}>
-                                    Camarón crudo acompañado con pepino tomate y cebolla moradaen cuadro, chile serrano y cilantro finamente picado coronado con aguacate
+                                }} dangerouslySetInnerHTML={createMarkup(plate.description_html)}>
                                 </p>
                                 <img style={{
                                     width: '100%',
@@ -111,10 +126,10 @@ class Plate extends React.Component {
                                     alignSelf: 'center',
                                     marginBottom: '1em',
                                     filter: 'drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25))'
-                                }} src="/static/images/slider-1.png" alt=""/>
+                                }} src={plate.photo} alt=""/>
                             </div>
-
                         </div>
+                        }
 
 
                     </div>
@@ -127,7 +142,9 @@ class Plate extends React.Component {
 const mapStateToProps = (state /*, ownProps*/) => {
     return {
         showCategoryNavbar: state.showCategoryNavbar,
-        categories: state.categories
+        categories: state.categories,
+        categoriesServer: state.categoriesServer,
+        platesServer: state.platesServer
     }
 }
 

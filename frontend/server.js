@@ -45,8 +45,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use('/static', express.static(path.join(__dirname, '../public')));
 app.use(favicon(path.join(__dirname, '../public', 'favicon.ico')));
-console.log('ads');
-console.log( path.join(__dirname, '../public') );
+//console.log('ads');
+//console.log( path.join(__dirname, '../public') );
 
 app.use('/users', userRouter);
 app.use('/auth', authRouter);
@@ -55,25 +55,23 @@ app.use('/categories', categoryRouter);
 // app.use('/auth', authRouter);
 
 app.get("*", async (req, res, next) => {
+    console.log("hola")
     const activeRoute = routes.find((route) => matchPath(req.url, route)) || {};
     let logged = await isLogged(activeRoute, req);
-    console.log(await isLogged(activeRoute, req));
+    //console.log(await isLogged(activeRoute, req));
     const promise = activeRoute.fetchInitialData
-        ? activeRoute.fetchInitialData(req.path)
+        ? activeRoute.fetchInitialData()
         : Promise.resolve();
 
     initialState.logged = logged;
 
-    let store = createStore(storeReducer, initialState, composeWithDevTools());
     
     const sheet = new ServerStyleSheet(); // <-- creating out stylesheet
 
-    
-    
-    
-
     promise.then((data) => {
         const context = { data }
+        const initialState2 = {...initialState, ...context.data}
+        let store = createStore(storeReducer, initialState2, composeWithDevTools());
         const markup = renderToString(
             sheet.collectStyles(
             <StaticRouter location={req.url} context={context}>
@@ -86,8 +84,8 @@ app.get("*", async (req, res, next) => {
         const styleTags = sheet.getStyleTags(); // <-- getting all the tags from the sheet
         // console.log(styleTags);
         let options = {
-            initialData: serialize(data),
-            initialStateStore: serialize(initialState),
+            //initialData: serialize(data),
+            initialStateStore: serialize(initialState2),
             markup: markup,
             styles: styleTags
         };

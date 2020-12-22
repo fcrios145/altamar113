@@ -6,6 +6,8 @@ export const initialState = {
     showCategoryNavbar: false,
     showPlateNavbar: false,
     plateSelected: {},
+    platesServer: [],
+    categoriesServer: [],
     categories: [
         {
             text: 'Ceviches',

@@ -5,6 +5,7 @@ import PlateEdition2 from "../browser/PlateEdition2";
 import Login from '../browser/Login'
 import Plate from "../browser/Plate";
 import Dashboard from "../browser/Dashboard";
+import fetchMenuData from "../shared/fetchMenuData";
 
 const routes =  [
     {
@@ -12,11 +13,13 @@ const routes =  [
         exact: true,
         protectedPage: false,
         component: Home,
+        fetchInitialData: () => fetchMenuData()
     },
     {
         path: '/menu/:categoria?/:platillo?',
         protectedPage: false,
         component: Plate,
+        fetchInitialData: () => fetchMenuData()
     },
     {
         path: '/login',
